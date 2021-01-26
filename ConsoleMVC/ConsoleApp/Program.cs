@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleApp
+namespace Projeto3_LP2_2020.ConsoleApp
 {
     class Program
     {
