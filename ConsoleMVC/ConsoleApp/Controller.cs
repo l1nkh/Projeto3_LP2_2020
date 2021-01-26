@@ -19,21 +19,12 @@ namespace Projeto3_LP2_2020.ConsoleApp
         /// <param name="pieceNum">Int identifying the specific piece of
         /// the player</param>
         /// <param name="turnBlack">Bool identifying the current player
-        /// (and its pieces)</param>
+        /// (helps find its pieces)</param>
         /// <returns>Bool, true if possible choice, false if not</returns>
         public bool CheckPiece(int pieceNum, bool turnBlack)
         {
-            // Calls 'Common' method checking piece's status
+            // Calls 'Common' method checking piece's Status
             return player.IsPieceAvailable(turnBlack, pieceNum);
-        }
-
-        /// <summary>
-        /// Returns a position, converting an input into a valid position.
-        /// </summary>
-        /// <returns>Position returned.</returns>
-        public Position GetPosition(ConsoleView view)
-        {
-            return player.PositionForNumber(view.InputedKeys);
         }
 
         /// <summary>
@@ -42,14 +33,19 @@ namespace Projeto3_LP2_2020.ConsoleApp
         /// </summary>
         /// <param name="pieceNum">The piece selected by the player to be
         /// moved</param>
+        /// <param name="turnBlack">Bool identifying the current player
+        /// (helps find its pieces)</param>
         /// <param name="directionNumber">The direction selected by the
         /// player</param>
         /// <returns>Bool, true if direction is possible, false if not</returns>
-        public bool CheckDirection(int pieceNum, int directionNumber)
+        public bool CheckDirection(int pieceNum, bool turnBlack, int directionNumber)
         {
             bool validDirection = false;
             // Calls 'Common' method checking if the wanted direction from the 
             // selected piece's position is valid
+                // If valid, call 'Common' method to transform its position 
+                // according to direction
+                // validDirection = true;
             return validDirection;
         }
 
