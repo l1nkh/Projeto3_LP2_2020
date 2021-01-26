@@ -29,7 +29,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
 
         /// <summary>
         /// Check if the direction chosen by the player leads to an accessible
-        /// space
+        /// space. If so, change position.
         /// </summary>
         /// <param name="pieceNum">The piece selected by the player to be
         /// moved</param>
@@ -38,7 +38,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
         /// <param name="directionNumber">The direction selected by the
         /// player</param>
         /// <returns>Bool, true if direction is possible, false if not</returns>
-        public bool CheckDirection(int pieceNum, bool turnBlack, int directionNumber)
+        public bool CheckForDirection(int pieceNum, bool turnBlack, int directionNumber)
         {
             bool validDirection = false;
             // Calls 'Common' method checking if the wanted direction from the 
@@ -47,6 +47,14 @@ namespace Projeto3_LP2_2020.ConsoleApp
                 // according to direction
                 // validDirection = true;
             return validDirection;
+        }
+
+        public bool CheckForWin()
+        {
+            bool gameWon = false;
+            // Calls 'Common' method checking if there is a win
+                // If valid, call 'Common' method announcing winner
+            return gameWon;
         }
 
         public void Run(ConsoleView consoleView)

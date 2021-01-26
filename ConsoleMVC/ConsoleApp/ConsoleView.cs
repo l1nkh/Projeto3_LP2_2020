@@ -72,6 +72,24 @@ namespace Projeto3_LP2_2020.ConsoleApp
         }
 
         /// <summary>
+        /// Checks if a player won the game, changing the gameState accordingly.
+        /// </summary>
+        /// <returns>Updated gameState</returns>
+        private GameState UpdateGameState()
+        {
+            if (controller.CheckForWin())
+            {
+                return GameState.VictoryScreen;
+            }
+            else
+            {
+                turnBlack = !turnBlack;
+                RequestPiece();
+                return GameState.SelectPiece;
+            }
+        }
+
+        /// <summary>
         /// Listens to specific input according to current gameState
         /// </summary>
         /// <param name="gameState">The current stage of the game</param>
@@ -214,62 +232,50 @@ namespace Projeto3_LP2_2020.ConsoleApp
                         {
                             case ConsoleKey.D1:
                                 // check direction & change position
-                                if (controller.CheckDirection(
+                                if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 1))
                                 {
-                                    turnBlack = !turnBlack;
-                                    gameState = GameState.SelectPiece;
-                                    RequestPiece();
+                                    gameState = UpdateGameState();
                                 }
                                 break;
                             case ConsoleKey.D2:
                                 // check direction & change position
-                                if (controller.CheckDirection(
+                                if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 2))
                                 {
-                                    turnBlack = !turnBlack;
-                                    gameState = GameState.SelectPiece;
-                                    RequestPiece();
+                                    gameState = UpdateGameState();
                                 }
                                 break;
                             case ConsoleKey.D3:
                                 // check direction & change position
-                                if (controller.CheckDirection(
+                                if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 3))
                                 {
-                                    turnBlack = !turnBlack;
-                                    gameState = GameState.SelectPiece;
-                                    RequestPiece();
+                                    gameState = UpdateGameState();
                                 }
                                 break;
                             case ConsoleKey.D4:
                                 // check direction & change position
-                                if (controller.CheckDirection(
+                                if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 4))
                                 {
-                                    turnBlack = !turnBlack;
-                                    gameState = GameState.SelectPiece;
-                                    RequestPiece();
+                                    gameState = UpdateGameState();
                                 }
                                 break;
                             case ConsoleKey.D5:
                                 // check direction & change position
-                                if (controller.CheckDirection(
+                                if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 5))
                                 {
-                                    turnBlack = !turnBlack;
-                                    gameState = GameState.SelectPiece;
-                                    RequestPiece();
+                                    gameState = UpdateGameState();
                                 }
                                 break;
                             case ConsoleKey.D6:
                                 // check direction & change position
-                                if (controller.CheckDirection(
+                                if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 6))
                                 {
-                                    turnBlack = !turnBlack;
-                                    gameState = GameState.SelectPiece;
-                                    RequestPiece();
+                                    gameState = UpdateGameState();
                                 }
                                 break;
                             // Close Game
@@ -287,15 +293,10 @@ namespace Projeto3_LP2_2020.ConsoleApp
                     // Announce Winner
                     case GameState.VictoryScreen:
 
-                        // >>>> ISTO NÃO DEVE SER AQUI <<<<
-                        Console.WriteLine("Match Over");
-                        // Text anouncing winner
-
                         switch(key)
                         {
                             // Restart Game
                             case ConsoleKey.Spacebar:
-                                //controller.VictoryScreen();
                                 gameState = GameState.Menu;
                                 break;
                             // Close Game
