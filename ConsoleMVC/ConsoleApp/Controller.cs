@@ -14,61 +14,43 @@ namespace Projeto3_LP2_2020.ConsoleApp
         }
 
         /// <summary>
+        /// Check if the requested piece of the player is available (not dead)
+        /// </summary>
+        /// <param name="pieceNum">Int identifying the specific piece of
+        /// the player</param>
+        /// <param name="turnBlack">Bool identifying the current player
+        /// (and its pieces)</param>
+        /// <returns>Bool, true if possible choice, false if not</returns>
+        public bool CheckPiece(int pieceNum, bool turnBlack)
+        {
+            // Calls 'Common' method checking piece's status
+            return player.IsPieceAvailable(turnBlack, pieceNum);
+        }
+
+        /// <summary>
         /// Returns a position, converting an input into a valid position.
         /// </summary>
         /// <returns>Position returned.</returns>
         public Position GetPosition(ConsoleView view)
         {
-            /*bool isConverted = false;
-            int position = 0;
-
-            while(!isConverted)
-            {
-                isConverted = int.TryParse(Console.ReadLine(),
-                    out position)
-                    && position > 0 && position < 16;
-            }*/
             return player.PositionForNumber(view.InputedKeys);
         }
 
-        public bool CheckPiece(int piece)
+        /// <summary>
+        /// Check if the direction chosen by the player leads to an
+        /// accessible space
+        /// </summary>
+        /// <param name="pieceNum">The piece selected by the player to be
+        /// moved</param>
+        /// <param name="directionNumber">The direction selected by the
+        /// player</param>
+        /// <returns>Bool, true if direction is possible, false if not</returns>
+        public bool CheckDirection(int pieceNum, int directionNumber)
         {
-            if(player.PositionForNumber(piece))
-            {
-                // do conjunto das peças da cor especificada, verifica o estado da
-                // peça com o numero dado
-
-                // verificar peça com o numero escrito, retornar verdadeiro se 
-                // não estiver comida
-            }
-        }
-
-        public void GetDirection()
-        {
-            // The converted input.
-            //int convertedAux;
-
-            // Boolean to check if the output convertion worked..
-            //bool convertSuccesful = false;
-
-            //Console.WriteLine("Which direction?");
-
-            Console.WriteLine("Up/Middle (1) | Middle/Left (2) |" +
-                " Middle/Right (3) | Lower/Middle (4)");
-
-            // If our piece is in the middle, it can move diagonally.
-            if (IsPieceInCenter(selectedPiece.Pos))
-                Console.WriteLine("Lower/Right (5) | Upper/Right (6) |" +
-                                " Lower/Left (7) | Upper/Left (8)");
-
-            // Keep asking for a direction until we get a valid input.
-            while(!convertSuccesful)
-            {
-                Console.Write("Which direction? (Insert a valid option.)");
-                convertSuccesful = int.TryParse(Console.ReadLine(),
-                    out convertedAux)
-                    && (convertedAux > 0 && convertedAux <= 8);
-            }
+            bool validDirection = false;
+            // Calls 'Common' method checking if the wanted direction from the 
+            // selected piece's position is valid
+            return validDirection;
         }
 
         public void Run(ConsoleView consoleView)
