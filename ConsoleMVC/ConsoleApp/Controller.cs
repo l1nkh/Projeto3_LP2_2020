@@ -37,7 +37,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
             {
                 // do conjunto das peças da cor especificada, verifica o estado da
                 // peça com o numero dado
-                
+
                 // verificar peça com o numero escrito, retornar verdadeiro se 
                 // não estiver comida
             }
@@ -59,7 +59,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
             // If our piece is in the middle, it can move diagonally.
             if (IsPieceInCenter(selectedPiece.Pos))
                 Console.WriteLine("Lower/Right (5) | Upper/Right (6) |" +
-                    " Lower/Left (7) | Upper/Left (8)");
+                                " Lower/Left (7) | Upper/Left (8)");
 
             // Keep asking for a direction until we get a valid input.
             while(!convertSuccesful)
@@ -70,7 +70,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                     && (convertedAux > 0 && convertedAux <= 8);
             }
         }
-        
+
         public void Run(ConsoleView consoleView)
         {
             running = true;
@@ -78,13 +78,15 @@ namespace Projeto3_LP2_2020.ConsoleApp
             consoleView.Start();
             while(running)
             {
-                consoleView.GetInput(gameState);
+                gameState = consoleView.GetInput(gameState);
             }
-            consoleView.Finish();
+            // Exit Program
+            Environment.Exit(0);
         }
 
         public void Quit()
         {
+            Console.WriteLine("\nGoodbye...");
             running = false;
         }
     }
