@@ -7,7 +7,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
     {
         // Identifies the current turn
         private bool turnBlack;
-        // Identifies the - valid - piece selected to be moved
+        // Identifies the number of the - valid - piece selected to be moved
         private int validPieceNum;
         private Player player;
         private Controller controller;

@@ -28,8 +28,8 @@ namespace Projeto3_LP2_2020.ConsoleApp
         }
 
         /// <summary>
-        /// Check if the direction chosen by the player leads to an
-        /// accessible space
+        /// Check if the direction chosen by the player leads to an accessible
+        /// space
         /// </summary>
         /// <param name="pieceNum">The piece selected by the player to be
         /// moved</param>
