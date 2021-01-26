@@ -14,63 +14,49 @@ namespace Projeto3_LP2_2020.ConsoleApp
         }
 
         /// <summary>
-        /// Returns a position, converting an input into a valid position.
+        /// Check if the requested piece of the player is available (not dead)
         /// </summary>
-        /// <returns>Position returned.</returns>
-        public Position GetPosition(ConsoleView view)
+        /// <param name="pieceNum">Int identifying the specific piece of
+        /// the player</param>
+        /// <param name="turnBlack">Bool identifying the current player
+        /// (helps find its pieces)</param>
+        /// <returns>Bool, true if possible choice, false if not</returns>
+        public bool CheckPiece(int pieceNum, bool turnBlack)
         {
-            /*bool isConverted = false;
-            int position = 0;
-
-            while(!isConverted)
-            {
-                isConverted = int.TryParse(Console.ReadLine(),
-                    out position)
-                    && position > 0 && position < 16;
-            }*/
-            return player.PositionForNumber(view.InputedKeys);
+            // Calls 'Common' method checking piece's Status
+            return player.IsPieceAvailable(turnBlack, pieceNum);
         }
 
-        public bool CheckPiece(int piece)
+        /// <summary>
+        /// Check if the direction chosen by the player leads to an accessible
+        /// space. If so, change position.
+        /// </summary>
+        /// <param name="pieceNum">The piece selected by the player to be
+        /// moved</param>
+        /// <param name="turnBlack">Bool identifying the current player
+        /// (helps find its pieces)</param>
+        /// <param name="directionNumber">The direction selected by the
+        /// player</param>
+        /// <returns>Bool, true if direction is possible, false if not</returns>
+        public bool CheckForDirection(int pieceNum, bool turnBlack, int directionNumber)
         {
-            if(player.PositionForNumber(piece))
-            {
-                // do conjunto das peças da cor especificada, verifica o estado da
-                // peça com o numero dado
-                
-                // verificar peça com o numero escrito, retornar verdadeiro se 
-                // não estiver comida
-            }
+            bool validDirection = false;
+            // Calls 'Common' method checking if the wanted direction from the 
+            // selected piece's position is valid
+                // If valid, call 'Common' method to transform its position 
+                // according to direction
+                // validDirection = true;
+            return validDirection;
         }
 
-        public void GetDirection()
+        public bool CheckForWin()
         {
-            // The converted input.
-            //int convertedAux;
-
-            // Boolean to check if the output convertion worked..
-            //bool convertSuccesful = false;
-
-            //Console.WriteLine("Which direction?");
-
-            Console.WriteLine("Up/Middle (1) | Middle/Left (2) |" +
-                " Middle/Right (3) | Lower/Middle (4)");
-
-            // If our piece is in the middle, it can move diagonally.
-            if (IsPieceInCenter(selectedPiece.Pos))
-                Console.WriteLine("Lower/Right (5) | Upper/Right (6) |" +
-                    " Lower/Left (7) | Upper/Left (8)");
-
-            // Keep asking for a direction until we get a valid input.
-            while(!convertSuccesful)
-            {
-                Console.Write("Which direction? (Insert a valid option.)");
-                convertSuccesful = int.TryParse(Console.ReadLine(),
-                    out convertedAux)
-                    && (convertedAux > 0 && convertedAux <= 8);
-            }
+            bool gameWon = false;
+            // Calls 'Common' method checking if there is a win
+                // If valid, call 'Common' method announcing winner
+            return gameWon;
         }
-        
+
         public void Run(ConsoleView consoleView)
         {
             running = true;
@@ -78,13 +64,15 @@ namespace Projeto3_LP2_2020.ConsoleApp
             consoleView.Start();
             while(running)
             {
-                consoleView.GetInput(gameState);
+                gameState = consoleView.GetInput(gameState);
             }
-            consoleView.Finish();
+            // Exit Program
+            Environment.Exit(0);
         }
 
         public void Quit()
         {
+            Console.WriteLine("\nGoodbye...");
             running = false;
         }
     }
