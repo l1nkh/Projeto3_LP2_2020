@@ -81,6 +81,8 @@ namespace Projeto3_LP2_2020.ConsoleApp
             else
             {
                 turnBlack = !turnBlack;
+                // Reset variable for the next turn's selection
+                validPieceNum = 0;
                 RequestPiece();
                 return GameState.SelectPiece;
             }
