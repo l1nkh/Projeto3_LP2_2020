@@ -9,16 +9,10 @@ namespace Projeto3_LP2_2020.ConsoleApp
         private bool turnBlack;
         // Identifies the number of the - valid - piece selected to be moved
         private int validPieceNum;
-        private Player player;
         private Controller controller;
-
-        // I dont think this is necessary <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        public Position ChosenPiece {get; private set;}
-        public Position DestinationPos {get; set;}
 
         public ConsoleView(Controller controller)
         {
-            player = new Player();
             this.controller = controller;
         }
 
@@ -30,9 +24,9 @@ namespace Projeto3_LP2_2020.ConsoleApp
             Console.WriteLine("Welcome to the game Felli!");
             Console.WriteLine("Choose one of the following:");
             Console.WriteLine(
-                "\n1) Start Game" +
-                "\n2) Help" +
-                "\nESC) Quit (Valid mid-game)");
+                "\n'1' -> Start Game" +
+                "\n'2' -> Help" +
+                "\nESC -> Quit (Valid mid-game)");
         }
 
         /// <summary>
@@ -42,8 +36,8 @@ namespace Projeto3_LP2_2020.ConsoleApp
         {
             Console.WriteLine("Which color plays first?");
             Console.WriteLine(
-                "\n1) Black" +
-                "\n2) White");
+                "\n'1' -> Black" +
+                "\n'2' -> White");
         }
 
         /// <summary>
@@ -52,6 +46,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
         private void RequestPiece()
         {
             Console.WriteLine("Which piece do you want to move?");
+            Console.WriteLine("(write the number of the piece)");
         }
 
         /// <summary>
@@ -61,8 +56,10 @@ namespace Projeto3_LP2_2020.ConsoleApp
         {
             Console.WriteLine("To which direction do you want to move " +
                             "the piece?");
+            Console.WriteLine("(write the number corresponding to the wanted " +
+                            "direction for the movement)");
             Console.WriteLine(
-                "(consider piece's current position as the '-')\n");
+                "(consider the piece's current position as the '-')\n");
 
             Console.WriteLine("\t1  2  3");
             Console.WriteLine("\t \\ | /");
