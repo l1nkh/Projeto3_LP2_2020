@@ -36,7 +36,13 @@ início até à sua entrega_
 
 ### Design Patterns utilizados
 
-* **Model-View-Controller (MVC)** -
+* **Model-View-Controller (MVC)** - Este pattern é constituido por 3 peças 
+fundamentais, o View, o Model e o Controller. O modelo é o contentor do código 
+comum entre as duas aplicações diferentes do jogo Felli. O Controller manipula o 
+input do utilizador e comunica com o modelo para o saber o que fazer com esse 
+input. A View é responsável pela renderização do jogo no ecrã e é sempre 
+atualizado através do controller e do model quando o utilizador faz inputs e 
+altera o estado do jogo.
   
 * **Observer** -
 
