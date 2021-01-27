@@ -10,24 +10,24 @@ namespace Projeto3_LP2_2020.Common
     public class Board
     {
         /// <summary>
-        /// Board where we will store the pieces of the game.
+        /// Bi-dimensional array where we will store the pieces of the game.
         /// </summary>
         private Piece[,] board;
+        private Piece[] blackPieceSet;
+        private Piece[] whitePieceSet;
 
         /// <summary>
-        /// Checks who's current turn it is.
-        /// </summary>
-        public State NextTurn { get; private set; }
-
-        /// <summary>
-        /// Create our board that creates it with the correct space, and by
-        /// default starts the current turn as Black, even though it is later
-        /// picked by our players.
+        /// Create our board that creates it with the correct space.
         /// </summary>
         public Board()
         {
-            board = new Piece[5, 3];
-            NextTurn = State.Black;
+            // Create "board" with correct dimensions
+            board = new Piece[3, 5];
+            // Create sets of pieces for each player/color
+            blackPieceSet = new Piece[6];
+            whitePieceSet = new Piece[6];
+            // Create pieces and assign them to the board and respective set
+            AssignStates();
         }
 
         /// <summary>
@@ -39,12 +39,9 @@ namespace Projeto3_LP2_2020.Common
         private bool IsPieceInCenter(Position pos)
         {
             // Center is (2, 1).
-            // Additionally, 
-            if ((pos.X == 2 && pos.Y == 1)
-                || (pos.X == 1 && pos.Y == 0)
-                || (pos.X == 1 && pos.Y == 2)
-                || (pos.X == 3 && pos.Y == 0)
-                || (pos.X == 3 && pos.Y == 2))
+            if ((pos.X == 2 && pos.Y == 1) || (pos.X == 1 && pos.Y == 0) ||
+                (pos.X == 1 && pos.Y == 2) || (pos.X == 3 && pos.Y == 0) ||
+                (pos.X == 3 && pos.Y == 2))
                 return true;
             else
                 return false;
@@ -118,8 +115,10 @@ namespace Projeto3_LP2_2020.Common
             // For our checking if the piece in there is beyond, we must return
             // true here.
             for (int i = 0; i < possiblePositions.Length; i++)
+            {
                 if (CanMoveToLocation(possiblePositions[i]))
                         return true;
+            }
             return false;
         }
 
@@ -217,10 +216,14 @@ namespace Projeto3_LP2_2020.Common
                         }
                         // Else, return the normal destination.
                         else
+                        {
                             return destinations[i];
+                        }
                     }
                     else
+                    {
                         return destinations[i];
+                    }
                 }
             }
             return blockedPosition;
@@ -278,59 +281,6 @@ namespace Projeto3_LP2_2020.Common
         }
 
         /// <summary>
-        /// Check to see if the move done by the player was valid.
-        /// If it was, the turn was succesful and so we swap.
-        /// If not, try again!
-        /// </summary>
-        /// <param name="piece">Piece to check.</param>
-        /// <param name="position">Position to check.</param>
-        /// <returns>True if it was good, false is not.</returns>
-        public bool WasTurnSuccesful(Piece piece, Position position)
-        {
-            // If the move done was out of bounds, false.
-            if (IsOutOfBounds(position)) return false;
-            // If the move was in a place already occupied, false.
-            if (IsOccupied(position)) return false;
-
-            // If the move was done right, we move the piece and swap turn.
-            MovePiece(piece, position);
-            SwitchNextTurn();
-            return true;
-        }
-
-        /// <summary>
-        /// Displays all available pieces that are available for movement.
-        /// </summary>
-        /// <param name="currentPlayer">State to check for.</param>
-        public void ShowAvailableStates(State currentPlayer)
-        {
-            int number = 0;
-
-            // This will run through the board and
-            // check which ones can move. Printing
-            // out the relevant pieces.
-            Console.WriteLine("\nAvailable pieces for movement:");
-            for (int x = 0; x < board.GetLength(0); x++)
-                for(int y = 0; y < board.GetLength(1); y++)
-                {
-                    Position position = new Position(x, y);
-                    number++;
-
-                    if (IsOccupied(position))
-                    {
-                        if (GetPiece(position).State == currentPlayer)
-                        {
-                            if (CanMoveAtAll(position))
-                            {
-                                Console.WriteLine($"({number}) - {x}, {y}");
-                            }
-                        }
-                    }
-                }
-            Console.WriteLine();
-        }
-
-        /// <summary>
         /// Get a piece at a position.
         /// </summary>
         /// <param name="position">Position to check.</param>
@@ -341,17 +291,31 @@ namespace Projeto3_LP2_2020.Common
         }
 
         /// <summary>
+        /// Checks if the requested piece of the player is selectable
+        /// </summary>
+        /// <param name="serialNumber">Serial number of the piece to identify
+        /// it in the set</param>
+        /// <param name="turnBlack">Boolean identifying whose turn it is</param>
+        /// <returns>Boolean, true if available, false if not</returns>
+        public bool IsPieceAvailable(int serialNumber, bool turnBlack)
+        {
+            // NEEDS UPDATE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            // Will have to check if alive and then if not surrounded
+            if (turnBlack)
+                return blackPieceSet[serialNumber].IsAlive;
+            else
+                return whitePieceSet[serialNumber].IsAlive;
+        }
+
+        /// <summary>
         /// Checks if the position is out of the board's bounds.
         /// </summary>
         /// <param name="pos">Position to check.</param>
         /// <returns>True if its out of bounds, false otherwise.</returns>
         private bool IsOutOfBounds(Position pos)
         {
-            if (pos.Y > board.GetLength(1) - 1 || pos.Y < 0
-                || pos.X > board.GetLength(0) - 1 || pos.X < 0)
-                return true;
-            else
-                return false;
+            return pos.Y > board.GetLength(1) - 1 || pos.Y < 0 ||
+                    pos.X > board.GetLength(0) - 1 || pos.X < 0;
         }
 
         /// <summary>
@@ -382,10 +346,7 @@ namespace Projeto3_LP2_2020.Common
                 else
                 {
                     // Checks if it can be eaten as well.
-                    if (CanEat(destination))
-                        return true;
-                    else
-                        return false;
+                    return CanEat(destination);
                 }
             }
             return false;
@@ -439,8 +400,10 @@ namespace Projeto3_LP2_2020.Common
 
             // Run through every possible position.
             for (int i = 0; i < possiblePositions.Length; i++)
+            {
                 // Check if its out of bounds first before diving deeper.
                 if(!IsOutOfBounds(possiblePositions[i]))
+                {
                     // Check if the piece acquired is occupied and the one we
                     // are checking is also occupied.
                     if (GetPiece(currentPos) != null
@@ -529,18 +492,9 @@ namespace Projeto3_LP2_2020.Common
                             }
                         }
                     }
-
-                return false;
-        }
-
-        /// <summary>
-        /// Swaps the player who is playing, checking if the current player
-        /// is Black to then swap to White, and vice-versa.
-        /// </summary>
-        public void SwitchNextTurn()
-        {
-            if (NextTurn == State.Black) NextTurn = State.White;
-            else NextTurn = State.Black;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -550,11 +504,18 @@ namespace Projeto3_LP2_2020.Common
         /// <param name="y">Column.</param>
         /// <param name="state">White, Black or Blocked.</param>
         /// <returns>Assigns the piece created in the board.</returns>
-        private Piece SetInitialLocation(int x, int y, State state, int serialNumber)
+        private void SetInitialLocation(int x, int y, State state, int serialNumber)
         {
             Piece piece = new Piece(state, serialNumber);
             piece.Pos = new Position(x, y);
-            return board[x, y] = piece;
+            // Add piece to the board in its initial position.
+            board[x, y] = piece;
+
+            // Add piece to the appropriate collection
+            if (piece.State == State.Black)
+                blackPieceSet[serialNumber] = piece;
+            else if (piece.State == State.White)
+                whitePieceSet[serialNumber] = piece;
         }
 
         /// <summary>
@@ -585,6 +546,8 @@ namespace Projeto3_LP2_2020.Common
             // BLOCKED
             SetInitialLocation(2, 0, State.Blocked, 0);
             SetInitialLocation(2, 2, State.Blocked, 0);
+
+            // Center coordinate [2, 1] is free (null)
         }
     }
 }
