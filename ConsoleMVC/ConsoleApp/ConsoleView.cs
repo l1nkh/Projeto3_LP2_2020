@@ -9,16 +9,10 @@ namespace Projeto3_LP2_2020.ConsoleApp
         private bool turnBlack;
         // Identifies the number of the - valid - piece selected to be moved
         private int validPieceNum;
-        private Player player;
         private Controller controller;
-
-        // I dont think this is necessary <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        public Position ChosenPiece {get; private set;}
-        public Position DestinationPos {get; set;}
 
         public ConsoleView(Controller controller)
         {
-            player = new Player();
             this.controller = controller;
         }
 
