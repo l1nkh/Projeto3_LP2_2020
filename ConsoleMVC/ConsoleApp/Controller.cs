@@ -5,12 +5,12 @@ namespace Projeto3_LP2_2020.ConsoleApp
 {
     public class Controller
     {
-        private Board board;
+        private GameManager gameManager;
         private bool running;
         private GameState gameState;
         public Controller()
         {
-            board = new Board();
+            gameManager = new GameManager();
         }
 
         /// <summary>
@@ -23,8 +23,8 @@ namespace Projeto3_LP2_2020.ConsoleApp
         /// <returns>Bool, true if possible choice, false if not</returns>
         public bool CheckPiece(int pieceNum, bool turnBlack)
         {
-            // Calls 'Common' method checking piece's Status
-            return board.IsPieceAvailable(pieceNum, turnBlack);
+            // Calls 'Common' method checking piece is alive and not 'stuck'
+            return gameManager.IsPieceAvailable(pieceNum, turnBlack);
         }
 
         /// <summary>
@@ -38,7 +38,8 @@ namespace Projeto3_LP2_2020.ConsoleApp
         /// <param name="directionNumber">The direction selected by the
         /// player</param>
         /// <returns>Bool, true if direction is possible, false if not</returns>
-        public bool CheckForDirection(int pieceNum, bool turnBlack, int directionNumber)
+        public bool CheckForDirection(
+            int pieceNum, bool turnBlack, int directionNumber)
         {
             bool validDirection = false;
             // Calls 'Common' method checking if the wanted direction from the 
@@ -49,12 +50,19 @@ namespace Projeto3_LP2_2020.ConsoleApp
             return validDirection;
         }
 
-        public bool CheckForWin()
+        public bool CheckForWin(bool turnBlack)
         {
-            bool gameWon = false;
-            // Calls 'Common' method checking if there is a win
-                // If valid, call 'Common' method announcing winner
-            return gameWon;
+            // Call 'Common' method checking if there is a win
+            // If valid, announce winner
+            if (gameManager.CheckForWin(turnBlack))
+            {
+                if (turnBlack)
+                    Console.WriteLine(">>> Game won by BLACK <<<");
+                else
+                    Console.WriteLine(">>> Game won by WHITE <<<");
+            }
+
+            return gameManager.CheckForWin(turnBlack);
         }
 
         public void Run(ConsoleView consoleView)
