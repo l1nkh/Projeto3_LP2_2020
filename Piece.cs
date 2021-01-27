@@ -12,10 +12,10 @@ namespace Projeto3_LP2_2020.Common
         /// <summary>
         /// The state of the piece.
         /// </summary>
-        public State State { get; private set; }
+        public State State { get; private set;}
 
         public bool IsAlive{get;}
-        public int SerialNumber{get; set;}
+        public readonly int serialNumber;
 
         /// <summary>
         /// The position of the piece.
@@ -28,7 +28,7 @@ namespace Projeto3_LP2_2020.Common
         /// <param name="selectedState">White, Black or Blocked.</param>
         public Piece(State selectedState, int serialNumber)
         {
-            SerialNumber = serialNumber;
+            this.serialNumber = serialNumber;
             IsAlive = true;
             State = selectedState;
         }
