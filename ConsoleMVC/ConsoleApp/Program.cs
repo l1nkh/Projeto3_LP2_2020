@@ -7,6 +7,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            // Chamar Controller.Run
         }
     }
 }
