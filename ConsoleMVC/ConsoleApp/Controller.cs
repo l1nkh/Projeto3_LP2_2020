@@ -5,12 +5,12 @@ namespace Projeto3_LP2_2020.ConsoleApp
 {
     public class Controller
     {
-        private Player player;
+        private Board board;
         private bool running;
         private GameState gameState;
         public Controller()
         {
-            player = new Player();
+            board = new Board();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
         public bool CheckPiece(int pieceNum, bool turnBlack)
         {
             // Calls 'Common' method checking piece's Status
-            return player.IsPieceAvailable(turnBlack, pieceNum);
+            return board.IsPieceAvailable(pieceNum, turnBlack);
         }
 
         /// <summary>
