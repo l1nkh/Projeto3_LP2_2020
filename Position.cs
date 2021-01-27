@@ -10,19 +10,19 @@ namespace Projeto3_LP2_2020.Common
     public class Position
     {
         /// <summary>
-        /// Row/X.
+        /// Column (X).
         /// </summary>
         public int X { get; }
         /// <summary>
-        /// Column/Y.
+        /// Row (Y).
         /// </summary>
         public int Y { get; }
 
         /// <summary>
         /// Constructor to make a Position.
         /// </summary>
-        /// <param name="x">Row/X.</param>
-        /// <param name="y">Column/Y.</param>
+        /// <param name="x">Column (X).</param>
+        /// <param name="y">Row (Y).</param>
         public Position(int x, int y)
         {
             X = x;
