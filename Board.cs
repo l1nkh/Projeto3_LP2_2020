@@ -19,14 +19,17 @@ namespace Projeto3_LP2_2020.Common
         /// <summary>
         /// Create our board that creates it with the correct space.
         /// </summary>
-        public Board()
+        public Board(Piece[,] boardArray,
+                     Piece[] blackPieceSet, Piece[] whitePieceSet)
         {
             // Create "board" with correct dimensions
-            board = new Piece[3, 5];
+            board = boardArray;
             // Create sets of pieces for each player/color
-            blackPieceSet = new Piece[6];
-            whitePieceSet = new Piece[6];
-            // Create pieces and assign them to the board and respective set
+            this.blackPieceSet = blackPieceSet;
+            this.whitePieceSet = whitePieceSet;
+
+            // Assign the appropriate values for each piece in boardArray and 
+            // fill both PieceSets
             AssignStates();
         }
 
@@ -291,23 +294,6 @@ namespace Projeto3_LP2_2020.Common
         }
 
         /// <summary>
-        /// Checks if the requested piece of the player is selectable
-        /// </summary>
-        /// <param name="serialNumber">Serial number of the piece to identify
-        /// it in the set</param>
-        /// <param name="turnBlack">Boolean identifying whose turn it is</param>
-        /// <returns>Boolean, true if available, false if not</returns>
-        public bool IsPieceAvailable(int serialNumber, bool turnBlack)
-        {
-            // NEEDS UPDATE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            // Will have to check if alive and then if not surrounded
-            if (turnBlack)
-                return blackPieceSet[serialNumber].IsAlive;
-            else
-                return whitePieceSet[serialNumber].IsAlive;
-        }
-
-        /// <summary>
         /// Checks if the position is out of the board's bounds.
         /// </summary>
         /// <param name="pos">Position to check.</param>
@@ -504,7 +490,8 @@ namespace Projeto3_LP2_2020.Common
         /// <param name="y">Column.</param>
         /// <param name="state">White, Black or Blocked.</param>
         /// <returns>Assigns the piece created in the board.</returns>
-        private void SetInitialLocation(int x, int y, State state, int serialNumber)
+        private void SetInitialLocation(
+                                int x, int y, State state, int serialNumber)
         {
             Piece piece = new Piece(state, serialNumber);
             piece.Pos = new Position(x, y);
