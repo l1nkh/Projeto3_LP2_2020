@@ -6,6 +6,7 @@ namespace Projeto3_LP2_2020.Common
         private Piece[] blackPieceSet;
         private Piece[] whitePieceSet;
         private Board board;
+        public Piece[,] BoardArray {get => boardArray;}
         public GameManager()
         {
             // Set the dimensions for the boardArray and the pieceSets
