@@ -13,6 +13,38 @@ namespace Projeto3_LP2_2020.ConsoleApp
             gameManager = new GameManager();
         }
 
+        public string GetBoard()
+        {
+            string board = "\n";
+            // Row by Row
+            for (int r = 0; r<gameManager.BoardArray.GetLength(1); r++)
+            {
+                board += "\t";
+                // Column by Column
+                for (int c = 0; c<gameManager.BoardArray.GetLength(0); c++)
+                {
+                    if (c == 0 && (r == 1 || r == 3))
+                        board += "   ";
+
+                    if (gameManager.BoardArray[c, r] == null)
+                        board += "EM";
+                    else if (gameManager.BoardArray[c, r].State == State.Black)
+                        board += $"B{gameManager.BoardArray[c, r].serialNumber}";
+                    else if (gameManager.BoardArray[c, r].State == State.White)
+                        board += $"W{gameManager.BoardArray[c, r].serialNumber}";
+                    else if (gameManager.BoardArray[c, r].State == State.Blocked)
+                        board += "  ";
+
+                    if ((r == 0 || r == 4) && c < 3)
+                        board += "     ";
+                    else if ((r == 1 || r == 2 || r == 3) && c < 3)
+                        board += "  ";
+                }
+                board += "\n";
+            }
+            return board;
+        }
+
         /// <summary>
         /// Check if the requested piece of the player is available (not dead)
         /// </summary>
@@ -56,6 +88,9 @@ namespace Projeto3_LP2_2020.ConsoleApp
             // If valid, announce winner
             if (gameManager.CheckForWin(turnBlack))
             {
+                // Write board
+                Console.WriteLine(GetBoard());
+                // Announce Winner
                 if (turnBlack)
                     Console.WriteLine(">>> Game won by BLACK <<<");
                 else
