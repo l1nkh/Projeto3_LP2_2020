@@ -15,17 +15,20 @@ início até à sua entrega_
     * Diogo Henriques:
 
             Responsável pelo lado de Unity.
-            Envolvido no desenvolvimento da base de Felli.
+            Envolvido no desenvolvimento da implementação original do Felli.
             Envolvido no Markdown.
 
     * João Dias:
 
             Responsável pelo lado de Unity.
-            Envolvido no desenvolvimento da base de Felli.
+            Envolvido no desenvolvimento da implementação original do Felli.
 
     * Pedro Fernandes:
 
             Responsável pelo lado de consola.
+            
+            Corrigiu e Restruturou a implementação do Felli de modo a 
+            acomodar o MVC.
             Envolvido no Markdown.
 
 [Repositório Git](https://github.com/l1nkh/Projeto3_LP2_2020)
@@ -36,13 +39,13 @@ início até à sua entrega_
 
 ### Design Patterns utilizados
 
-* **Model-View-Controller (MVC)** - Este pattern é constituido por 3 peças 
-fundamentais, o View, o Model e o Controller. O modelo é o contentor do código 
-comum entre as duas aplicações diferentes do jogo Felli. O Controller manipula o 
-input do utilizador e comunica com o modelo para o saber o que fazer com esse 
-input. A View é responsável pela renderização do jogo no ecrã e é sempre 
-atualizado através do controller e do model quando o utilizador faz inputs e 
-altera o estado do jogo.
+* **Model-View-Controller (MVC)** - Este pattern é constituido por 3 peças
+  fundamentais, o View, o Model e o Controller. O modelo é o contentor do código
+  comum entre as duas aplicações diferentes do jogo Felli. O Controller manipula
+  o input do utilizador e comunica com o modelo para o saber o que fazer com
+  esse input. A View é responsável pela renderização do jogo no ecrã e é sempre
+  atualizado através do controller e do model quando o utilizador faz inputs e
+  altera o estado do jogo.
   
 * **Observer** -
 
