@@ -88,16 +88,21 @@ namespace Projeto3_LP2_2020.ConsoleApp
             // If valid, announce winner
             if (gameManager.CheckForWin(turnBlack))
             {
-                // Write board
+                // Write won board
                 Console.WriteLine(GetBoard());
                 // Announce Winner
                 if (turnBlack)
-                    Console.WriteLine(">>> Game won by BLACK <<<");
+                {
+                    Console.WriteLine(">>> Game won by [BLACK] <<<");
+                    return true;
+                }
                 else
-                    Console.WriteLine(">>> Game won by WHITE <<<");
+                {
+                    Console.WriteLine(">>> Game won by [WHITE] <<<");
+                    return true;
+                }
             }
-
-            return gameManager.CheckForWin(turnBlack);
+            return false;
         }
 
         public void Run(ConsoleView consoleView)
