@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
+using Projeto3_LP2_2020.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,47 +7,24 @@ namespace Projeto3_LP2_2020.UnityApp
 {
     public class View : MonoBehaviour
     {
-        [SerializeField] private Button button;
-        [SerializeField] private GameObject PieceNumber;
-        [SerializeField] private GameObject PieceState;
+        [SerializeField] private Container container;
         [SerializeField] private Controller controller;
-
-        private char buttonChar;
-
-        void Awake()
+        public void UpdatePiece(Button button)
         {
-        }
+            string a = button.transform.GetChild(1).name;
+            char[] b = a.ToCharArray();
+            int buttonIdentifier = container.GameManager.BoardArray[Convert.ToInt32(b[0]), Convert.ToInt32(b[1])].serialNumber + 1;
 
-        void Update()
-        {
-            switch (PieceState.name)
+            if (!container.GameManager.BoardArray[Convert.ToInt32(b[0]), Convert.ToInt32(b[1])].IsAlive)
             {
-                case "None":
-                    buttonChar = ' ';
-                    PieceNumber.name = "";
-                    break;
-                case "Black":
-                    buttonChar = 'B';
-                    break;
-                case "White":
-                    buttonChar = 'W';
-                    break;
-                default:
-                    break;
-            }           
-        }
-        private void FixedUpdate()
-        {
-            button.GetComponentInChildren<Text>().text = buttonChar + PieceNumber.name;
-        }
-        private void OnEnable()
-        {
-
-        }
-
-        private void OnDisable()
-        {
-
+                button.GetComponent<Text>().text = " ";
+            }
+            else if (controller.TurnBlack)
+            {
+                button.GetComponent<Text>().text = 'B' + $"{buttonIdentifier}";
+            }
+            else
+                button.GetComponent<Text>().text = 'W' + $"{buttonIdentifier}";
         }
     }
 }
