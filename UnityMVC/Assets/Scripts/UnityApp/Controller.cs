@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Projeto3_LP2_2020.Common;
@@ -16,9 +14,6 @@ namespace Projeto3_LP2_2020.UnityApp
 
         private Button previousPiece;
         private TextMeshProUGUI GuideText;
-
-        private bool validPiece = true;
-        private bool validDirection;
         private int previousPieceNum;
         private string previousPieceState;
         public bool TurnBlack{get; set;}
@@ -44,9 +39,7 @@ namespace Projeto3_LP2_2020.UnityApp
             //string pieceState = piece.transform.GetChild(2).name;
 
             // Calls 'Common' method checking piece's Status
-            //validPiece = container.Player.IsPieceAvailable(TurnBlack, pieceNum);
-
-            if (validPiece)
+            if (container.GameManager.IsPieceAvailable(pieceNum, TurnBlack))
             {
                 previousPieceNum = pieceNum;
                 directions.SetActive(true);
@@ -55,8 +48,6 @@ namespace Projeto3_LP2_2020.UnityApp
             }
             else
             {
-                /*guide.SetActive(true);
-                guide.GetComponent<TextMeshProUGUI>().text = "Not a valid Piece";*/
                 GuideText.text = "Not a valid Piece";
             }
             /*if (validPiece)
@@ -86,27 +77,14 @@ namespace Projeto3_LP2_2020.UnityApp
                 previousPiece = piece;
             }*/
         }
-        private bool CheckPiece(int pieceNum, string pieceState)
+
+        public void CheckForDirection(int pieceDirectionNum)
         {
-            ;
-            // Calls 'Common' method checking piece's Status
-
-            //return container.Player.IsPieceAvailable(TurnBlack, pieceNum);
-            return true;
-
-        }
-
-        public void CheckForDirection(int PieceNum)
-        {
-             validDirection = true;
             // Calls 'Common' method checking if the wanted direction from the 
             // selected piece's position is valid
             // If valid, call 'Common' method to transform its position 
             // according to direction
-            // validDirection = true;
-            //return validDirection;
-
-            if (validDirection)
+            if (container.GameManager.IsDirectionAvaiable(previousPieceNum, pieceDirectionNum, TurnBlack))
             {
                 directions.SetActive(false);
                 pieceSelector.SetActive(true);
@@ -123,10 +101,20 @@ namespace Projeto3_LP2_2020.UnityApp
         }
         public bool CheckForWin()
         {
-            bool gameWon = false;
             // Calls 'Common' method checking if there is a win
-                // If valid, call 'Common' method announcing winner
-            return gameWon;
+            if (container.GameManager.CheckForWin(TurnBlack))
+            {
+                if (TurnBlack)
+                {
+                    GuideText.text = ">>> Game won by B player <<<";
+                }
+                else
+                    GuideText.text = ">>> Game won by W player <<<";
+
+                return true;
+            }
+            // If valid, call 'Common' method announcing winner
+            return false;
         }
 
         public void Quit()
