@@ -111,17 +111,21 @@ com o MVC Pattern.
 
 ### Unity
 
-#### Interesse 1
+#### Container
 
-* A B C D
+* A classe `Container` serve como contentor da informação do model, para ser
+  usado nas classes `Controller` e `Viewer`, não tendo assim de criar múltiplas
+  cópias das instâncias que queremos usar.
 
-#### Interesse 2
+#### Controller
 
-* 1 2 3 4
+* A classe `Controller` recebe o Scriptable Object `Container`, ganhando assim
+  acesso às classes vindas do model para as poder manipular o input do
+  utilizador e mover as peças dentro do jogo.
 
-#### Input
+#### View
 
-* Ponham o que acharem interessante.
+* tbd
 
 ### Diagrama UML
 
