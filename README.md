@@ -26,7 +26,6 @@ início até à sua entrega_
     * Pedro Fernandes:
 
             Responsável pelo lado de consola.
-            
             Corrigiu e Restruturou a implementação do Felli de modo a 
             acomodar o MVC.
             Envolvido no Markdown.
