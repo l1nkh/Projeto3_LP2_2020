@@ -30,8 +30,278 @@ namespace Projeto3_LP2_2020.Common
         }
 
         /// <summary>
-        /// Check if the piece is in or near the center lines to allow
-        /// diagonal movement.
+        /// Checks if a piece as possible spaces to move to.
+        /// </summary>
+        /// <param name="serialNumber">Number identifying a specific piece in
+        /// the player's set.</param>
+        /// <param name="turnBlack">Shows which player's turn it is.</param>
+        /// <returns>Boolean, true if the piece has spaces it can move to, false
+        /// if not.</returns>
+        public bool CanMove(int serialNumber, bool turnBlack)
+        {
+            Position position = GetPosition(serialNumber, turnBlack);
+            return SearchFreeSpace(position, turnBlack);
+        }
+
+        /// <summary>
+        /// Get the Pos property of a specific piece.
+        /// </summary>
+        /// <param name="serialNumber">Number identifying a specific piece in
+        /// the player's set.</param>
+        /// <param name="turnBlack">Shows which player's turn it is.</param>
+        /// <returns>Pos of the requested piece</returns>
+        private Position GetPosition(int serialNumber, bool turnBlack)
+        {
+            if (turnBlack)
+                return blackPieceSet[serialNumber].Pos;
+            else
+                return whitePieceSet[serialNumber].Pos;
+        }
+
+        /// <summary>
+        /// Search the spaces around a piece to see if any is null or if any
+        /// can be eaten (if they are pieces of the adversary)
+        /// </summary>
+        /// <param name="startPosition">Pos of the piece searching for
+        /// space</param>
+        /// <returns>Boolean, true if there is any free space, false if
+        /// not</returns>
+        private bool SearchFreeSpace(Position startPosition, bool turnBlack)
+        {
+            // Piece is in CENTER spot of the board
+            if (startPosition.X == 1 && startPosition.Y == 2)
+            {
+                // Check Row above and Row bellow
+                for (int c = 0; c < board.GetLength(0); c++)
+                {
+                    if (board[c, 1] == null || board[c, 3] == null)
+                    {
+                        return true;
+                    }
+                    // Check spaces where it is possible to EAT pieces
+                    else if(c == 1)
+                    {
+                        if (turnBlack)
+                        {
+                            if ((board[startPosition.X, startPosition.Y -1].State ==
+                                State.White &&
+                                board[startPosition.X, startPosition.Y -2] == null) ||
+                                (board[startPosition.X, startPosition.Y +1].State ==
+                                State.White &&
+                                board[startPosition.X, startPosition.Y +2] == null))
+                            {
+                                return true;
+                            }
+                        }
+                        else if (!turnBlack)
+                        {
+                            if ((board[startPosition.X, startPosition.Y -1].State ==
+                                State.Black &&
+                                board[startPosition.X, startPosition.Y -2] == null) ||
+                                (board[startPosition.X, startPosition.Y +1].State ==
+                                State.Black &&
+                                board[startPosition.X, startPosition.Y +2] == null))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Piece is in CENTER COLUMN of the board
+            // (but is not in center of the board)
+            else if (startPosition.X == 1 && startPosition.Y != 2)
+            {
+                // Check Left and Right
+                if(board[startPosition.X -1, startPosition.Y] == null ||
+                    board[startPosition.X +1, startPosition.Y] == null)
+                    return true;
+
+                // if Above CENTER, check Bellow (and check to EAT)
+                if (startPosition.Y < 2)
+                {
+                    // Piece BELLOW is empty
+                    if (board[startPosition.X, startPosition.Y +1] == null)
+                    {
+                        return true;
+                    }
+                    else if (turnBlack)
+                    {
+                        if (board[startPosition.X, startPosition.Y +1].State ==
+                            State.White &&
+                            board[startPosition.X +2, startPosition.Y +2] == null)
+                            return true;
+                    }
+                    else if (!turnBlack)
+                    {
+                        if (board[startPosition.X +1, startPosition.Y +1].State ==
+                            State.Black &&
+                            board[startPosition.X +2, startPosition.Y +2] == null)
+                            return true;
+                    }
+                }
+
+                // if Bellow CENTER, check Above (and check to EAT)
+                if (startPosition.Y > 2)
+                {
+                    // Piece ABOVE is empty
+                    if (board[startPosition.X, startPosition.Y -1] == null)
+                    {
+                        return true;
+                    }
+                    else if (turnBlack)
+                    {
+                        if (board[startPosition.X, startPosition.Y -1].State ==
+                            State.White &&
+                            board[startPosition.X +2, startPosition.Y -2] == null)
+                            return true;
+                    }
+                    else if (!turnBlack)
+                    {
+                        if (board[startPosition.X +1, startPosition.Y -1].State ==
+                            State.Black &&
+                            board[startPosition.X +2, startPosition.Y -2] == null)
+                            return true;
+                    }
+                }
+
+                // If Piece is close to the TOP and BOTTOM ROWS 
+                if (startPosition.Y == 1 ||
+                    startPosition.Y == board.GetLength(1) -2)
+                {
+                    // If close to TOP ROW, check above to MOVE
+                    if (startPosition.Y == 1)
+                    {
+                        // If close to TOP ROW, check Above
+                        if (board[startPosition.X, startPosition.Y -1] == null)
+                            return true;
+                    }
+
+                    // If close to BOTTOM ROW, check Bellow to MOVE
+                    else if (startPosition.Y == board.GetLength(1) -2)
+                    {
+                        // If close to BOTTOM ROW, check Bellow
+                        if (board[startPosition.X, startPosition.Y +1] == null)
+                            return true;
+                    }
+
+                    // Check center area
+                    if (board[1, 2] == null)
+                            return true;
+                }
+            }
+
+            // Piece is in LEFT COLUMN
+            if (startPosition.X == 0)
+            {
+                // Piece to the RIGHT is empty
+                if (board[startPosition.X +1, startPosition.Y] == null)
+                {
+                    return true;
+                }
+
+                // Check if EATING is possible
+                else if (turnBlack)
+                {
+                    if (board[startPosition.X +1, startPosition.Y].State ==
+                        State.White &&
+                        board[startPosition.X +2, startPosition.Y] == null)
+                        return true;
+                }
+                else if (!turnBlack)
+                {
+                    if (board[startPosition.X +1, startPosition.Y].State ==
+                        State.Black &&
+                        board[startPosition.X +2, startPosition.Y] == null)
+                        return true;
+                }
+            }
+
+            // Piece is in RIGHT COLUM
+            else if (startPosition.X == board.GetLength(0) -1)
+            {
+                // Piece to the LEFT is empty
+                if (board[startPosition.X -1, startPosition.Y] == null)
+                {
+                    return true;
+                }
+
+                // Check if EATING is possible
+                else if (turnBlack)
+                {
+                    if (board[startPosition.X -1, startPosition.Y].State ==
+                        State.White &&
+                        board[startPosition.X -2, startPosition.Y] == null)
+                        return true;
+                }
+                else if (!turnBlack)
+                {
+                    if (board[startPosition.X -1, startPosition.Y].State ==
+                        State.Black &&
+                        board[startPosition.X -2, startPosition.Y] == null)
+                        return true;
+                }
+            }
+
+            // If piece is in a position that can move diagonally
+            if ((startPosition.X == 0 || startPosition.X == 2) &&
+                (startPosition.Y == 1 || startPosition.Y == 3))
+            {
+                // Variables to define diagonal movement
+                int vectX, vectY;
+
+                if (startPosition.X == 0)
+                    vectX = 1;
+                else
+                    vectX = -1;
+                if (startPosition.Y == 1)
+                    vectY = -1;
+                else
+                    vectY = 1;
+
+                if (board[startPosition.X + vectX, startPosition.Y + vectY] == null)
+                    return true;
+
+                if (turnBlack)
+                {
+                    if (
+                        board[startPosition.X + vectX, startPosition.Y + vectY].State ==
+                        State.White &&
+                        board[startPosition.X + vectX*2, startPosition.Y + vectY*2] ==
+                        null)
+                        return true;
+                }
+                else if (!turnBlack)
+                {
+                    if (
+                        board[startPosition.X + vectX, startPosition.Y + vectY].State ==
+                        State.Black &&
+                        board[startPosition.X + vectX*2, startPosition.Y + vectY*2] ==
+                        null)
+                        return true;
+                }
+            }
+
+            // Piece is on TOP ROW & Piece bellow is empty
+            if (startPosition.Y == 0 &&
+                board[startPosition.X, startPosition.Y +1] == null)
+            {
+                return true;
+            }
+
+            // Piece is on BOTTOM ROW & Piece above is empty
+            else if (startPosition.Y == board.GetLength(1) -1 &&
+                board[startPosition.X, startPosition.Y -1] == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// NEEDS TO GO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         /// </summary>
         /// <param name="pos">Position to check.</param>
         /// <returns>True if it can, false if it can't.</returns>
@@ -47,82 +317,7 @@ namespace Projeto3_LP2_2020.Common
         }
 
         /// <summary>
-        /// Used to check if a piece can move in any direction.
-        /// </summary>
-        /// <param name="currentPos">The position we are checking.</param>
-        /// <returns>True if it can, false otherwise.</returns>
-        public bool CanMoveAtAll(Position currentPos)
-        {
-            // WIP: Later on to check if there is a spot to "eat"
-            // should also ask for the currentPiece's state as well
-            // then we can use ifs to check!
-            //
-            // If it's white, use GetPiece to check for the opponent
-            //
-            // This is just so we can't hop over our own pieces to "eat",
-            // because that makes no sense.
-
-            // If the piece is in the center, we'll add the diagonal movement
-            // to check as well.
-            int possiblePos;
-
-            if (IsPieceInCenter(currentPos))
-                possiblePos = 8;
-            else
-                possiblePos = 4;
-
-            // Create the possible positions.
-            Position[] possiblePositions = new Position[possiblePos];
-
-            // Add our possible positions.
-            // Upper Middle.
-            possiblePositions[0] = new Position(
-                currentPos.X - 1, currentPos.Y);
-            // Middle Left.
-            possiblePositions[1] = new Position(
-                currentPos.X, currentPos.Y - 1);
-            // Middle Right.
-            possiblePositions[2] = new Position(
-                currentPos.X, currentPos.Y + 1);
-            // Lower Middle.
-            possiblePositions[3] = new Position(
-                currentPos.X + 1, currentPos.Y);
-
-            // If the piece is in the center, add the diagonal options.
-            if (IsPieceInCenter(currentPos))
-            {
-                // Lower Right.
-                possiblePositions[4] = new Position(
-                    currentPos.X + 1, currentPos.Y + 1);
-
-                // Upper Right.
-                possiblePositions[5] = new Position(
-                    currentPos.X - 1, currentPos.Y + 1);
-
-                // Lower Left.
-                possiblePositions[6] = new Position(
-                    currentPos.X + 1, currentPos.Y - 1);
-
-                // Upper Left.
-                possiblePositions[7] = new Position(
-                    currentPos.X - 1, currentPos.Y - 1);
-            }
-
-            // For every possible position, check if they aren't occupied.
-            // If not, return true immediately since there's a free spot.
-            //
-            // For our checking if the piece in there is beyond, we must return
-            // true here.
-            for (int i = 0; i < possiblePositions.Length; i++)
-            {
-                if (CanMoveToLocation(possiblePositions[i]))
-                        return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Method to return the position we are moving towards.
+        /// IS PROBABLY GOING <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         /// </summary>
         /// <param name="selectedPiece">Piece that we are moving.</param>
         /// <returns>Destination position.</returns>
