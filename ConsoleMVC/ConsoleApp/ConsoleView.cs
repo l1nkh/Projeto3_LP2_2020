@@ -41,10 +41,14 @@ namespace Projeto3_LP2_2020.ConsoleApp
         }
 
         /// <summary>
-        /// Message requesting which Piece the user wants to move
+        /// Message writing board and requesting which Piece the user
+        /// wants to move.
         /// </summary>
         private void RequestPiece()
         {
+            // Write Board
+            Console.WriteLine(controller.GetBoard());
+
             Console.WriteLine("Which piece do you want to move?");
             Console.WriteLine("(write the number of the piece)");
         }
@@ -69,18 +73,21 @@ namespace Projeto3_LP2_2020.ConsoleApp
         }
 
         /// <summary>
-        /// Checks if a player won the game, changing the gameState accordingly.
+        /// Checks if a player won the game, changing the
+        /// gameState accordingly.
         /// </summary>
         /// <returns>Updated gameState</returns>
-        private GameState UpdateGameState()
+        private GameState UpdateGameState(bool turnBlack)
         {
-            if (controller.CheckForWin())
+            if (controller.CheckForWin(turnBlack))
             {
                 return GameState.VictoryScreen;
             }
             else
             {
                 turnBlack = !turnBlack;
+                // Reset variable for the next turn's selection
+                validPieceNum = 0;
                 RequestPiece();
                 return GameState.SelectPiece;
             }
@@ -232,7 +239,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 1))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D2:
@@ -240,7 +247,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 2))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D3:
@@ -248,7 +255,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 3))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D4:
@@ -256,7 +263,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 4))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D5:
@@ -264,7 +271,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 5))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D6:
@@ -272,7 +279,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 6))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             // Close Game
