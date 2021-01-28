@@ -165,55 +165,49 @@ namespace Projeto3_LP2_2020.ConsoleApp
                         switch(key)
                         {
                             case ConsoleKey.D1:
-                                if(controller.CheckPiece(1, turnBlack))
+                                if(controller.CheckPiece(0, turnBlack))
                                 {
-                                    validPieceNum = 1;
-                                    //controller.GetPosition(1);
+                                    validPieceNum = 0;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D2:
-                                if(controller.CheckPiece(2, turnBlack))
+                                if(controller.CheckPiece(1, turnBlack))
                                 {
-                                    validPieceNum = 2;
-                                    //controller.GetPosition(2);
+                                    validPieceNum = 1;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D3:
-                                if(controller.CheckPiece(3, turnBlack))
+                                if(controller.CheckPiece(2, turnBlack))
                                 {
-                                    validPieceNum = 3;
-                                    //controller.GetPosition(3);
+                                    validPieceNum = 2;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D4:
-                                if(controller.CheckPiece(4, turnBlack))
+                                if(controller.CheckPiece(3, turnBlack))
                                 {
-                                    validPieceNum = 4;
-                                    //controller.GetPosition(4);
+                                    validPieceNum = 3;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D5:
-                                if(controller.CheckPiece(5, turnBlack))
+                                if(controller.CheckPiece(4, turnBlack))
                                 {
-                                    validPieceNum = 5;
-                                    //controller.GetPosition(5);
+                                    validPieceNum = 4;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D6:
-                                if(controller.CheckPiece(6, turnBlack))
+                                if(controller.CheckPiece(5, turnBlack))
                                 {
-                                    validPieceNum = 6;
-                                    //controller.GetPosition(6);
+                                    validPieceNum = 5;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }

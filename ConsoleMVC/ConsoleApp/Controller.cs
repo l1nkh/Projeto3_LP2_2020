@@ -29,9 +29,9 @@ namespace Projeto3_LP2_2020.ConsoleApp
                     if (gameManager.BoardArray[c, r] == null)
                         board += "EM";
                     else if (gameManager.BoardArray[c, r].State == State.Black)
-                        board += $"B{gameManager.BoardArray[c, r].serialNumber}";
+                        board += $"B{gameManager.BoardArray[c, r].serialNumber + 1}";
                     else if (gameManager.BoardArray[c, r].State == State.White)
-                        board += $"W{gameManager.BoardArray[c, r].serialNumber}";
+                        board += $"W{gameManager.BoardArray[c, r].serialNumber + 1}";
                     else if (gameManager.BoardArray[c, r].State == State.Blocked)
                         board += "  ";
 
@@ -88,16 +88,21 @@ namespace Projeto3_LP2_2020.ConsoleApp
             // If valid, announce winner
             if (gameManager.CheckForWin(turnBlack))
             {
-                // Write board
+                // Write won board
                 Console.WriteLine(GetBoard());
                 // Announce Winner
                 if (turnBlack)
-                    Console.WriteLine(">>> Game won by BLACK <<<");
+                {
+                    Console.WriteLine(">>> Game won by [BLACK] <<<");
+                    return true;
+                }
                 else
-                    Console.WriteLine(">>> Game won by WHITE <<<");
+                {
+                    Console.WriteLine(">>> Game won by [WHITE] <<<");
+                    return true;
+                }
             }
-
-            return gameManager.CheckForWin(turnBlack);
+            return false;
         }
 
         public void Run(ConsoleView consoleView)
