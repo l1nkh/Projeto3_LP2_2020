@@ -27,10 +27,6 @@ namespace Projeto3_LP2_2020.Common
             // Create sets of pieces for each player/color
             this.blackPieceSet = blackPieceSet;
             this.whitePieceSet = whitePieceSet;
-
-            // Assign the appropriate values for each piece in boardArray and 
-            // fill both PieceSets
-            AssignStates();
         }
 
         /// <summary>
@@ -126,7 +122,7 @@ namespace Projeto3_LP2_2020.Common
         }
 
         /// <summary>
-        /// Method to return the position we are moving towards. 
+        /// Method to return the position we are moving towards.
         /// </summary>
         /// <param name="selectedPiece">Piece that we are moving.</param>
         /// <returns>Destination position.</returns>
@@ -481,60 +477,6 @@ namespace Projeto3_LP2_2020.Common
                 }
             }
             return false;
-        }
-
-        /// <summary>
-        /// Set the initial position of the method. Used in AssignStates().
-        /// </summary>
-        /// <param name="x">Row.</param>
-        /// <param name="y">Column.</param>
-        /// <param name="state">White, Black or Blocked.</param>
-        /// <returns>Assigns the piece created in the board.</returns>
-        private void SetInitialLocation(
-                                int x, int y, State state, int serialNumber)
-        {
-            Piece piece = new Piece(state, serialNumber);
-            piece.Pos = new Position(x, y);
-            // Add piece to the board in its initial position.
-            board[x, y] = piece;
-
-            // Add piece to the appropriate collection
-            if (piece.State == State.Black)
-                blackPieceSet[serialNumber] = piece;
-            else if (piece.State == State.White)
-                whitePieceSet[serialNumber] = piece;
-        }
-
-        /// <summary>
-        /// Method to assign the initial states of the game.
-        /// </summary>
-        public void AssignStates()
-        {
-            // Since the default state of the board is always the same,
-            // there just isn't any other way to go around this.
-
-            // From top-to-down.
-            // BLACK SIDE
-            SetInitialLocation(0, 0, State.Black, 1);
-            SetInitialLocation(0, 1, State.Black, 2);
-            SetInitialLocation(0, 2, State.Black, 3);
-            SetInitialLocation(1, 0, State.Black, 4);
-            SetInitialLocation(1, 1, State.Black, 5);
-            SetInitialLocation(1, 2, State.Black, 6);
-
-            // WHITE SIDE
-            SetInitialLocation(3, 0, State.White, 1);
-            SetInitialLocation(3, 1, State.White, 2);
-            SetInitialLocation(3, 2, State.White, 3);
-            SetInitialLocation(4, 0, State.White, 4);
-            SetInitialLocation(4, 1, State.White, 5);
-            SetInitialLocation(4, 2, State.White, 6);
-
-            // BLOCKED
-            SetInitialLocation(2, 0, State.Blocked, 0);
-            SetInitialLocation(2, 2, State.Blocked, 0);
-
-            // Center coordinate [2, 1] is free (null)
         }
     }
 }
