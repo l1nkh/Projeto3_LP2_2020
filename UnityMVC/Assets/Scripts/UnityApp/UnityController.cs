@@ -6,7 +6,7 @@ using System;
 
 namespace Projeto3_LP2_2020.UnityApp
 {
-    public class Controller : MonoBehaviour
+    public class UnityController : MonoBehaviour
     {
         [SerializeField] private Container container;
         [SerializeField] private GameObject directions;
@@ -80,11 +80,12 @@ namespace Projeto3_LP2_2020.UnityApp
 
         public void CheckForDirection(int pieceDirectionNum)
         {
+            bool valid = true;
             // Calls 'Common' method checking if the wanted direction from the 
             // selected piece's position is valid
             // If valid, call 'Common' method to transform its position 
             // according to direction
-            if (container.GameManager.IsDirectionAvaiable(previousPieceNum, pieceDirectionNum, TurnBlack))
+            if (valid/*container.GameManager.IsDirectionAvaiable(previousPieceNum, pieceDirectionNum, TurnBlack)*/)
             {
                 directions.SetActive(false);
                 pieceSelector.SetActive(true);
@@ -99,7 +100,7 @@ namespace Projeto3_LP2_2020.UnityApp
                 pieceSelector.SetActive(true);
             }
         }
-        public bool CheckForWin()
+        private bool CheckForWin()
         {
             // Calls 'Common' method checking if there is a win
             if (container.GameManager.CheckForWin(TurnBlack))

@@ -16,4 +16,4 @@ namespace Projeto3_LP2_2020.UnityApp
             GameManager = new GameManager();
         }
     }
-}
+}   
