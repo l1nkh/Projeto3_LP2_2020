@@ -29,9 +29,9 @@ namespace Projeto3_LP2_2020.ConsoleApp
                     if (gameManager.BoardArray[c, r] == null)
                         board += "EM";
                     else if (gameManager.BoardArray[c, r].State == State.Black)
-                        board += $"B{gameManager.BoardArray[c, r].serialNumber}";
+                        board += $"B{gameManager.BoardArray[c, r].serialNumber + 1}";
                     else if (gameManager.BoardArray[c, r].State == State.White)
-                        board += $"W{gameManager.BoardArray[c, r].serialNumber}";
+                        board += $"W{gameManager.BoardArray[c, r].serialNumber + 1}";
                     else if (gameManager.BoardArray[c, r].State == State.Blocked)
                         board += "  ";
 
