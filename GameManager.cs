@@ -112,20 +112,20 @@ namespace Projeto3_LP2_2020.Common
 
             // From top-to-down.
             // BLACK SIDE
-            SetInitialLocation(0, 0, State.Black, 1);
-            SetInitialLocation(0, 1, State.Black, 2);
-            SetInitialLocation(0, 2, State.Black, 3);
-            SetInitialLocation(1, 0, State.Black, 4);
-            SetInitialLocation(1, 1, State.Black, 5);
-            SetInitialLocation(1, 2, State.Black, 6);
+            SetInitialLocation(0, 0, State.Black, 0);
+            SetInitialLocation(0, 1, State.Black, 1);
+            SetInitialLocation(0, 2, State.Black, 2);
+            SetInitialLocation(1, 0, State.Black, 3);
+            SetInitialLocation(1, 1, State.Black, 4);
+            SetInitialLocation(1, 2, State.Black, 5);
 
             // WHITE SIDE
-            SetInitialLocation(3, 0, State.White, 1);
-            SetInitialLocation(3, 1, State.White, 2);
-            SetInitialLocation(3, 2, State.White, 3);
-            SetInitialLocation(4, 0, State.White, 4);
-            SetInitialLocation(4, 1, State.White, 5);
-            SetInitialLocation(4, 2, State.White, 6);
+            SetInitialLocation(3, 0, State.White, 0);
+            SetInitialLocation(3, 1, State.White, 1);
+            SetInitialLocation(3, 2, State.White, 2);
+            SetInitialLocation(4, 0, State.White, 3);
+            SetInitialLocation(4, 1, State.White, 4);
+            SetInitialLocation(4, 2, State.White, 5);
 
             // BLOCKED
             SetInitialLocation(2, 0, State.Blocked, 0);
