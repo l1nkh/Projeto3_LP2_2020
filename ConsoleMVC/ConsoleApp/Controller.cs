@@ -55,7 +55,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
         /// <returns>Bool, true if possible choice, false if not</returns>
         public bool CheckPiece(int pieceNum, bool turnBlack)
         {
-            // Calls 'Common' method checking piece is alive and not 'stuck'
+            // Call 'Common' method checking piece is alive and not 'stuck'
             return gameManager.IsPieceAvailable(pieceNum, turnBlack);
         }
 
@@ -74,7 +74,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
             int pieceNum, bool turnBlack, int directionNumber)
         {
             // Calls 'Common' method checking if the wanted direction from the 
-            // selected piece's position is valid and makes change if so
+            // selected piece's position is valid and makes change if so.
             return gameManager.CheckDirection(pieceNum, turnBlack, directionNumber);
         }
 
