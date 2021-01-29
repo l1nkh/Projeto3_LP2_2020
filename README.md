@@ -15,6 +15,8 @@ início até à sua entrega_
     * Diogo Henriques:
 
             Responsável pelo lado de Unity.
+            Responsável pela organização do projeto e implementação do MVC 
+            no GitHub.
             Envolvido no desenvolvimento da implementação original do Felli.
             Envolvido no Markdown.
 
@@ -25,7 +27,7 @@ início até à sua entrega_
 
     * Pedro Fernandes:
 
-            Responsável pelo lado de consola.
+            Responsável pelo lado de Consola.
             Corrigiu e Restruturou a implementação do Felli de modo a 
             acomodar o MVC.
             Envolvido no Markdown.
