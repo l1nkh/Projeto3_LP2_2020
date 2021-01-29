@@ -73,13 +73,9 @@ namespace Projeto3_LP2_2020.ConsoleApp
         public bool CheckForDirection(
             int pieceNum, bool turnBlack, int directionNumber)
         {
-            bool validDirection = false;
             // Calls 'Common' method checking if the wanted direction from the 
-            // selected piece's position is valid
-                // If valid, call 'Common' method to transform its position 
-                // according to direction
-                // validDirection = true;
-            return validDirection;
+            // selected piece's position is valid and makes change if so
+            return gameManager.CheckDirection(pieceNum, turnBlack, directionNumber);
         }
 
         public bool CheckForWin(bool turnBlack)
