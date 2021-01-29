@@ -9,16 +9,10 @@ namespace Projeto3_LP2_2020.ConsoleApp
         private bool turnBlack;
         // Identifies the number of the - valid - piece selected to be moved
         private int validPieceNum;
-        private Player player;
         private Controller controller;
-
-        // I dont think this is necessary <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        public Position ChosenPiece {get; private set;}
-        public Position DestinationPos {get; set;}
 
         public ConsoleView(Controller controller)
         {
-            player = new Player();
             this.controller = controller;
         }
 
@@ -30,9 +24,9 @@ namespace Projeto3_LP2_2020.ConsoleApp
             Console.WriteLine("Welcome to the game Felli!");
             Console.WriteLine("Choose one of the following:");
             Console.WriteLine(
-                "\n1) Start Game" +
-                "\n2) Help" +
-                "\nESC) Quit (Valid mid-game)");
+                "\n'1' -> Start Game" +
+                "\n'2' -> Help" +
+                "\nESC -> Quit (Valid mid-game)");
         }
 
         /// <summary>
@@ -42,16 +36,21 @@ namespace Projeto3_LP2_2020.ConsoleApp
         {
             Console.WriteLine("Which color plays first?");
             Console.WriteLine(
-                "\n1) Black" +
-                "\n2) White");
+                "\n'1' -> Black" +
+                "\n'2' -> White");
         }
 
         /// <summary>
-        /// Message requesting which Piece the user wants to move
+        /// Message writing board and requesting which Piece the user
+        /// wants to move.
         /// </summary>
         private void RequestPiece()
         {
+            // Write Board
+            Console.WriteLine(controller.GetBoard());
+
             Console.WriteLine("Which piece do you want to move?");
+            Console.WriteLine("(write the number of the piece)");
         }
 
         /// <summary>
@@ -61,8 +60,10 @@ namespace Projeto3_LP2_2020.ConsoleApp
         {
             Console.WriteLine("To which direction do you want to move " +
                             "the piece?");
+            Console.WriteLine("(write the number corresponding to the wanted " +
+                            "direction for the movement)");
             Console.WriteLine(
-                "(consider piece's current position as the '-')\n");
+                "(consider the piece's current position as the '-')\n");
 
             Console.WriteLine("\t1  2  3");
             Console.WriteLine("\t \\ | /");
@@ -72,18 +73,21 @@ namespace Projeto3_LP2_2020.ConsoleApp
         }
 
         /// <summary>
-        /// Checks if a player won the game, changing the gameState accordingly.
+        /// Checks if a player won the game, changing the
+        /// gameState accordingly.
         /// </summary>
         /// <returns>Updated gameState</returns>
-        private GameState UpdateGameState()
+        private GameState UpdateGameState(bool turnBlack)
         {
-            if (controller.CheckForWin())
+            if (controller.CheckForWin(turnBlack))
             {
                 return GameState.VictoryScreen;
             }
             else
             {
                 turnBlack = !turnBlack;
+                // Reset variable for the next turn's selection
+                validPieceNum = 0;
                 RequestPiece();
                 return GameState.SelectPiece;
             }
@@ -161,55 +165,49 @@ namespace Projeto3_LP2_2020.ConsoleApp
                         switch(key)
                         {
                             case ConsoleKey.D1:
-                                if(controller.CheckPiece(1, turnBlack))
+                                if(controller.CheckPiece(0, turnBlack))
                                 {
-                                    validPieceNum = 1;
-                                    //controller.GetPosition(1);
+                                    validPieceNum = 0;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D2:
-                                if(controller.CheckPiece(2, turnBlack))
+                                if(controller.CheckPiece(1, turnBlack))
                                 {
-                                    validPieceNum = 2;
-                                    //controller.GetPosition(2);
+                                    validPieceNum = 1;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D3:
-                                if(controller.CheckPiece(3, turnBlack))
+                                if(controller.CheckPiece(2, turnBlack))
                                 {
-                                    validPieceNum = 3;
-                                    //controller.GetPosition(3);
+                                    validPieceNum = 2;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D4:
-                                if(controller.CheckPiece(4, turnBlack))
+                                if(controller.CheckPiece(3, turnBlack))
                                 {
-                                    validPieceNum = 4;
-                                    //controller.GetPosition(4);
+                                    validPieceNum = 3;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D5:
-                                if(controller.CheckPiece(5, turnBlack))
+                                if(controller.CheckPiece(4, turnBlack))
                                 {
-                                    validPieceNum = 5;
-                                    //controller.GetPosition(5);
+                                    validPieceNum = 4;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
                                 break;
                             case ConsoleKey.D6:
-                                if(controller.CheckPiece(6, turnBlack))
+                                if(controller.CheckPiece(5, turnBlack))
                                 {
-                                    validPieceNum = 6;
-                                    //controller.GetPosition(6);
+                                    validPieceNum = 5;
                                     gameState = GameState.SelectDirection;
                                     RequestDirection();
                                 }
@@ -235,7 +233,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 1))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D2:
@@ -243,7 +241,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 2))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D3:
@@ -251,7 +249,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 3))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D4:
@@ -259,7 +257,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 4))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D5:
@@ -267,7 +265,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 5))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             case ConsoleKey.D6:
@@ -275,7 +273,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 if (controller.CheckForDirection(
                                     validPieceNum, turnBlack, 6))
                                 {
-                                    gameState = UpdateGameState();
+                                    gameState = UpdateGameState(turnBlack);
                                 }
                                 break;
                             // Close Game
