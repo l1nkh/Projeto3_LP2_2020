@@ -123,9 +123,13 @@ com o MVC Pattern.
   acesso às classes vindas do model para as poder manipular o input do
   utilizador e mover as peças dentro do jogo.
 
-#### View
+#### View e Update Piece
 
-* tbd
+* A classe `UnityView` recebe o Scriptable Object `Container` e é responsável
+  por atualizar os butões (representativos do mapa e das peças), a classe possui
+  uma condição que que verifica o estado da peça, para saber o que imprimir no
+  butão. A classe `UpdatePiece` usa o método `UpdatePiece()` da classe
+  `UnityView` e atualiza-o todos os frames através do `FixedUpdate()`.
 
 ### Diagrama UML
 
