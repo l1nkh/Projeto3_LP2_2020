@@ -73,6 +73,32 @@ namespace Projeto3_LP2_2020.ConsoleApp
         }
 
         /// <summary>
+        /// Message of the instructions and rules of the game
+        /// </summary>
+        private void ShowHelp()
+        {
+            Console.WriteLine("How does the game work?");
+            Console.WriteLine("FelliGame is a PVP tabletop game where each" + 
+            "player has 6 pieces.");
+            Console.WriteLine();
+            Console.WriteLine("White pieces are placed on one side of the" +
+            " map, where 6 black pieces are placed on the opposite side of" +
+            " the map.");
+            Console.WriteLine();
+            Console.WriteLine("The players play in turns.");
+            Console.WriteLine();
+            Console.WriteLine("The players can move the pieces (always" +
+            " following the path line) in any direction where exists a free" +
+            " adjacent spot. You can take out enemy pieces by jumping above" + 
+            " them, and you'll land on the free spot adjacent to the previous" +
+            " enemy spot. (Just like in Checkers.");
+            Console.WriteLine();
+            Console.WriteLine("Win conditions.\nThe player who takes all the" +
+            " opponent pieces first wins!\nIf the current player blocks all" +
+            " the opponent's pieces the current player wins!");
+        }
+
+        /// <summary>
         /// Checks if a player won the game, changing the
         /// gameState accordingly.
         /// </summary>
@@ -117,6 +143,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 break;
                             // Show Help
                             case ConsoleKey.D2:
+                                ShowHelp();
                                 break;
                             // Close Game
                             case ConsoleKey.Escape:

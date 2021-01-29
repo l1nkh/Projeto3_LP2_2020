@@ -1,4 +1,5 @@
 ﻿using System;
+using Projeto3_LP2_2020.Common;
 
 namespace Projeto3_LP2_2020.ConsoleApp
 {
@@ -6,8 +7,10 @@ namespace Projeto3_LP2_2020.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            // Chamar Controller.Run
+                Controller controller = new Controller();
+                ConsoleView view = new ConsoleView(controller);
+
+                controller.Run(view);
         }
     }
 }
