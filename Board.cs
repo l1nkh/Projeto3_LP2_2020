@@ -169,28 +169,155 @@ namespace Projeto3_LP2_2020.Common
                 }
                 else if (direction == 3 || direction == 6)
                 {
-                    vect.X = -1;
+                    vect.X = 1;
                     vect.Y = 0;
                 }
                 else if (direction == 2)
                 {
                     vect.X = 0;
-                    vect.Y = 1;
-                }
-                else if (direction == 4)
-                {
-                    vect.X = 0;
                     vect.Y = -1;
                 }
-            }
-            // If on diagonals to the board
-            else if ((pos.X == 0 || pos.X == 2) && (pos.Y == 1 || pos.Y  == 3))
-            {
-                if (pos.X == 0 && (direction == 3 || direction == 6))
+                else if (direction == 5)
                 {
-                    vect.X = 1;
+                    vect.X = 0;
+                    vect.Y = 1;
                 }
-                else if (pos.X == 2 && (direction == 1 || direction == 4))
+            }
+            // If on diagonals of board
+            else if ((pos.X == 0 || pos.X == 2) && pos.Y != 2)
+            {
+                if (pos.X == 0)
+                {
+                    if (pos.Y == 0)
+                    {
+                        if (direction == 3)
+                        {
+                            vect.X = 1;
+                            vect.Y = 0;
+                        }
+                        else if (direction == 6 || direction == 5)
+                        {
+                            vect.X = 0;
+                            vect.Y = -1;
+                        }
+                    }
+                    if (pos.Y == 1)
+                    {
+                        if (direction == 3)
+                        {
+                            vect.X = 1;
+                            vect.Y = 0;
+                        }
+                        else if (direction == 6 || direction == 5)
+                        {
+                            vect.X = 1;
+                            vect.Y = 1;
+                        }
+                        else if (direction == 1 || direction == 2)
+                        {
+                            vect.X = 0;
+                            vect.Y = -1;
+                        }
+                    }
+                    if (pos.Y == 3)
+                    {
+                        if (direction == 3 || direction == 2 )
+                        {
+                            vect.X = 1;
+                            vect.Y = -1;
+                        }
+                        else if (direction == 6)
+                        {
+                            vect.X = 1;
+                            vect.Y = 0;
+                        }
+                        else if (direction == 4 || direction == 5)
+                        {
+                            vect.X = 0;
+                            vect.Y = 1;
+                        }
+                    }
+                    if (pos.Y == 4)
+                    {
+                        if (direction == 3 || direction == 2)
+                        {
+                            vect.X = 0;
+                            vect.Y = -1;
+                        }
+                        else if (direction == 6)
+                        {
+                            vect.X = 1;
+                            vect.Y = 0;
+                        }
+                    }
+                }
+                //
+                if (pos.X == 2)
+                {
+                    if (pos.Y == 0)
+                    {
+                        if (direction == 1)
+                        {
+                            vect.X = -1;
+                            vect.Y = 0;
+                        }
+                        else if (direction == 4 || direction == 5)
+                        {
+                            vect.X = 0;
+                            vect.Y = 1;
+                        }
+                    }                 
+                    if (pos.Y == 1)
+                    {
+                        if (direction == 3 || direction == 2)
+                        {
+                            vect.X = 0;
+                            vect.Y = -1;
+                        }
+                        else if (direction == 1)
+                        {
+                            vect.X = -1;
+                            vect.Y = 0;
+                        }
+                        else if (direction == 4 || direction == 5)
+                        {
+                            vect.X = -1;
+                            vect.Y = 1;
+                        }
+                    }
+                    if (pos.Y == 3)
+                    {
+                        if (direction == 4)
+                        {
+                            vect.X = -1;
+                            vect.Y = 0;
+                        }
+                        else if (direction == 1 || direction == 2)
+                        {
+                            vect.X = -1;
+                            vect.Y = -1;
+                        }
+                        else if (direction ==6 || direction == 5)
+                        {
+                            vect.X = 0;
+                            vect.Y = 1;
+                        }
+                    }
+                    if (pos.Y == 4)
+                    {
+                        if (direction == 4)
+                        {
+                            vect.X = -1;
+                            vect.Y = 0;
+                        }
+                        else if (direction == 1 || direction == 2)
+                        {
+                            vect.X = 0;
+                            vect.Y = -1;
+                        }
+                    }
+                }
+                /*else if (pos.X == 2 && (direction == 1 || direction == 4))
                 {
                     vect.X = -1;
                 }
@@ -201,12 +328,12 @@ namespace Projeto3_LP2_2020.Common
                 else if (pos.Y == 3 && (direction == 1 || direction == 3))
                 {
                     vect.X = -1;
-                }
+                }*/
             }
-            // If on top of board
-            else if (pos.Y == 0)
+            // If on top center of board
+            else if (pos.Y == 0 && pos.X == 1)
             {
-                if (direction == 4 && pos.X > 0)
+                if (direction == 4 || direction == 1)
                 {
                     vect.X = -1;
                     vect.Y = 0;
@@ -214,18 +341,18 @@ namespace Projeto3_LP2_2020.Common
                 else if (direction == 5)
                 {
                     vect.X = 0;
-                    vect.Y = -1;
+                    vect.Y = 1;
                 }
-                else if (direction == 6 && pos.X < board.GetLength(0) -1)
+                else if (direction == 6 && direction == 3)
                 {
                     vect.X = 1;
                     vect.Y = 0;
                 }
             }
-            // If on bottom of board
-            else if (pos.Y == board.GetLength(1) -1)
+            // If on bottom center of board
+            else if ((pos.Y == board.GetLength(1) - 1) && pos.X == 1)
             {
-                if (direction == 1 && pos.X > 0)
+                if (direction == 4 || direction == 1)
                 {
                     vect.X = -1;
                     vect.Y = 0;
@@ -235,14 +362,14 @@ namespace Projeto3_LP2_2020.Common
                     vect.X = 0;
                     vect.Y = -1;
                 }
-                else if (direction == 3 && pos.X < board.GetLength(0) -1)
+                else if (direction == 6 && direction == 3)
                 {
                     vect.X = 1;
                     vect.Y = 0;
                 }
             }
             // If on LEFT of board
-            else if (pos.X == 0)
+            /*else if (pos.X == 0)
             {
                 if (direction == 4 && pos.X > 0)
                 {
@@ -278,7 +405,7 @@ namespace Projeto3_LP2_2020.Common
                     vect.X = 1;
                     vect.Y = 0;
                 }
-            }
+            }*/
 
             return vect;
         }
@@ -301,6 +428,11 @@ namespace Projeto3_LP2_2020.Common
                 board[startingPos.X, startingPos.Y] = null;
                 return true;
             }
+            else if (board[startingPos.X + vector.X, startingPos.Y + vector.Y].State == State.Blocked)
+            {
+                return false;
+            }
+
             else if (board[startingPos.X, startingPos.Y].State !=
                     board[startingPos.X + vector.X, startingPos.Y + vector.Y].State)
             {

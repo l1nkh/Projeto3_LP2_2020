@@ -14,7 +14,7 @@ namespace Projeto3_LP2_2020.Common
         /// </summary>
         public State State { get; private set;}
 
-        public bool IsAlive{get;}
+        public bool IsAlive{ get; set; }
         public readonly int serialNumber;
 
         /// <summary>

@@ -60,12 +60,10 @@ namespace Projeto3_LP2_2020.Common
             if ((pos.X == 0 && (direction == 1 || direction == 4)) ||
                 (pos.X == 2 && (direction == 3 || direction == 6)) ||
                 (pos.Y == 0 && (direction == 1 || direction == 2 || direction == 3)) ||
-                (pos.Y == 1 && pos.X == 0 && (direction == 4 || direction == 5)) ||
-                (pos.Y == 1 && pos.X == 2 && (direction == 5 || direction == 6)) ||
-                (pos.Y == 1 && pos.X == 1 && (direction == 1 || direction == 3 || direction == 4|| direction == 6)) ||
-                (pos.Y == 3 && pos.X == 0 && (direction == 1 || direction == 2)) ||
-                (pos.Y == 3 && pos.X == 2 && (direction == 2 || direction == 3)) ||
-                (pos.Y == 3 && pos.X == 1 && (direction == 1 || direction == 3 || direction == 4|| direction == 6)) ||
+                (pos.Y == 1 && pos.X == 0 && direction == 4) ||
+                (pos.Y == 1 && pos.X == 2 && direction == 6) ||
+                (pos.Y == 3 && pos.X == 0 && direction == 1) ||
+                (pos.Y == 3 && pos.X == 2 && direction == 3) ||
                 (pos.Y == 4 && (direction == 4 || direction == 5 || direction == 6)))
             {
                 return false;
