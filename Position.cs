@@ -12,11 +12,11 @@ namespace Projeto3_LP2_2020.Common
         /// <summary>
         /// Column (X).
         /// </summary>
-        public int X { get; }
+        public int X { get; set;}
         /// <summary>
         /// Row (Y).
         /// </summary>
-        public int Y { get; }
+        public int Y { get; set;}
 
         /// <summary>
         /// Constructor to make a Position.

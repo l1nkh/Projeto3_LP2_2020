@@ -24,7 +24,7 @@ namespace Projeto3_LP2_2020.Common
 
             // Assign the appropriate values for each piece in boardArray and 
             // fill both PieceSets
-            AssignStates();
+            board.AssignStates();
 
             board = new Board (boardArray, blackPieceSet, whitePieceSet);
         }
@@ -43,16 +43,41 @@ namespace Projeto3_LP2_2020.Common
             {
                 // If piece is alive, see if it is surrounded
                 if (blackPieceSet[serialNumber].IsAlive)
-                    return board.CanMove(serialNumber, turnBlack);
+                    return board.HasMove(serialNumber, turnBlack);
             }
             else
             {
                 // If piece is alive, see if it is surrounded
                 if (whitePieceSet[serialNumber].IsAlive)
-                    return board.CanMove(serialNumber, turnBlack);
+                    return board.HasMove(serialNumber, turnBlack);
             }
 
             return false;
+        }
+
+        public bool CheckDirection(int serialNumber, bool turnBlack, int direction)
+        {
+            Position pos = board.GetPosition(serialNumber, turnBlack);
+
+            // Check if the direction chosen is immediately invalid due to the
+            // piece's position
+            if ((pos.X == 0 && (direction == 1 || direction == 4)) ||
+                (pos.X == 2 && (direction == 3 || direction == 6)) ||
+                (pos.Y == 0 && (direction == 1 || direction == 2 || direction == 3)) ||
+                (pos.Y == 1 && pos.X == 0 && (direction == 4 || direction == 5)) ||
+                (pos.Y == 1 && pos.X == 2 && (direction == 5 || direction == 6)) ||
+                (pos.Y == 1 && pos.X == 1 && (direction == 1 || direction == 3 || direction == 4|| direction == 6)) ||
+                (pos.Y == 3 && pos.X == 0 && (direction == 1 || direction == 2)) ||
+                (pos.Y == 3 && pos.X == 2 && (direction == 2 || direction == 3)) ||
+                (pos.Y == 3 && pos.X == 1 && (direction == 1 || direction == 3 || direction == 4|| direction == 6)) ||
+                (pos.Y == 4 && (direction == 4 || direction == 5 || direction == 6)))
+            {
+                return false;
+            }
+            else
+            {
+                return board.CanDoMove(pos, direction);
+            }
         }
 
         /// <summary>
@@ -86,60 +111,6 @@ namespace Projeto3_LP2_2020.Common
                 }
             }
             return true;
-        }
-
-        /// <summary>
-        /// Set the initial position of the method. Used in AssignStates().
-        /// </summary>
-        /// <param name="x">Row.</param>
-        /// <param name="y">Column.</param>
-        /// <param name="state">White, Black or Blocked.</param>
-        /// <returns>Assigns the piece created in the board.</returns>
-        private void SetInitialLocation(
-                                int x, int y, State state, int serialNumber)
-        {
-            Piece piece = new Piece(state, serialNumber);
-            piece.Pos = new Position(x, y);
-            // Add piece to the board in its initial position.
-            boardArray[x, y] = piece;
-
-            // Add piece to the appropriate collection
-            if (piece.State == State.Black)
-                blackPieceSet[serialNumber] = piece;
-            else if (piece.State == State.White)
-                whitePieceSet[serialNumber] = piece;
-        }
-
-        /// <summary>
-        /// Method to assign the initial states of the game.
-        /// </summary>
-        public void AssignStates()
-        {
-            // Since the default state of the board is always the same,
-            // there just isn't any other way to go around this.
-
-            // From top-to-down.
-            // BLACK SIDE
-            SetInitialLocation(0, 0, State.Black, 0);
-            SetInitialLocation(1, 0, State.Black, 1);
-            SetInitialLocation(2, 0, State.Black, 2);
-            SetInitialLocation(0, 1, State.Black, 3);
-            SetInitialLocation(1, 1, State.Black, 4);
-            SetInitialLocation(2, 1, State.Black, 5);
-
-            // WHITE SIDE
-            SetInitialLocation(0, 3, State.White, 0);
-            SetInitialLocation(1, 3, State.White, 1);
-            SetInitialLocation(2, 3, State.White, 2);
-            SetInitialLocation(0, 4, State.White, 3);
-            SetInitialLocation(1, 4, State.White, 4);
-            SetInitialLocation(2, 4, State.White, 5);
-
-            // BLOCKED
-            SetInitialLocation(0, 2, State.Blocked, 0);
-            SetInitialLocation(2, 2, State.Blocked, 0);
-
-            // Center coordinate [2, 1] is free (null)
         }
     }
 }
