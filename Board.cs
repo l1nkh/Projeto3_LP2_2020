@@ -27,6 +27,10 @@ namespace Projeto3_LP2_2020.Common
             // Create sets of pieces for each player/color
             this.blackPieceSet = blackPieceSet;
             this.whitePieceSet = whitePieceSet;
+
+            // Assign the appropriate values for each piece in boardArray and 
+            // fill both PieceSets
+            AssignStates();
         }
 
         /// <summary>
@@ -54,7 +58,7 @@ namespace Projeto3_LP2_2020.Common
         /// <summary>
         /// Method to assign the initial states of the game.
         /// </summary>
-        public void AssignStates()
+        private void AssignStates()
         {
             // Since the default state of the board is always the same,
             // there just isn't any other way to go around this.
@@ -345,9 +349,7 @@ namespace Projeto3_LP2_2020.Common
                                 (board[startPosition.X, startPosition.Y +1].State ==
                                 State.White &&
                                 board[startPosition.X, startPosition.Y +2] == null))
-                            {
                                 return true;
-                            }
                         }
                         else if (!turnBlack)
                         {
@@ -357,9 +359,7 @@ namespace Projeto3_LP2_2020.Common
                                 (board[startPosition.X, startPosition.Y +1].State ==
                                 State.Black &&
                                 board[startPosition.X, startPosition.Y +2] == null))
-                            {
                                 return true;
-                            }
                         }
                     }
                 }
@@ -379,23 +379,12 @@ namespace Projeto3_LP2_2020.Common
                 {
                     // Piece BELLOW is empty
                     if (board[startPosition.X, startPosition.Y +1] == null)
-                    {
                         return true;
-                    }
-                    else if (turnBlack)
-                    {
-                        if (board[startPosition.X, startPosition.Y +1].State ==
-                            State.White &&
-                            board[startPosition.X +2, startPosition.Y +2] == null)
+
+                    if (board[startPosition.X, startPosition.Y].State !=
+                        board[startPosition.X, startPosition.Y + 1].State)
+                        if (board[startPosition.X, startPosition.Y + 2] == null)
                             return true;
-                    }
-                    else if (!turnBlack)
-                    {
-                        if (board[startPosition.X +1, startPosition.Y +1].State ==
-                            State.Black &&
-                            board[startPosition.X +2, startPosition.Y +2] == null)
-                            return true;
-                    }
                 }
 
                 // if Bellow CENTER, check Above (and check to EAT)
@@ -403,23 +392,12 @@ namespace Projeto3_LP2_2020.Common
                 {
                     // Piece ABOVE is empty
                     if (board[startPosition.X, startPosition.Y -1] == null)
-                    {
                         return true;
-                    }
-                    else if (turnBlack)
-                    {
-                        if (board[startPosition.X, startPosition.Y -1].State ==
-                            State.White &&
-                            board[startPosition.X +2, startPosition.Y -2] == null)
+
+                    if (board[startPosition.X, startPosition.Y].State !=
+                        board[startPosition.X, startPosition.Y - 1].State)
+                        if (board[startPosition.X, startPosition.Y - 2] == null)
                             return true;
-                    }
-                    else if (!turnBlack)
-                    {
-                        if (board[startPosition.X +1, startPosition.Y -1].State ==
-                            State.Black &&
-                            board[startPosition.X +2, startPosition.Y -2] == null)
-                            return true;
-                    }
                 }
 
                 // If Piece is close to the TOP and BOTTOM ROWS 
@@ -451,58 +429,64 @@ namespace Projeto3_LP2_2020.Common
             // Piece is in LEFT COLUMN
             if (startPosition.X == 0)
             {
+                // Variables to define diagonal movement
+                int vectX = 1; 
+                int vectY;
+
+                if (startPosition.Y < 2)
+                    vectY = 1;
+                else
+                    vectY = -1;
+
                 // Piece to the RIGHT is empty
-                if (board[startPosition.X +1, startPosition.Y] == null)
-                {
+                if (board[startPosition.X +1, startPosition.Y] == null ||
+                    board[startPosition.X + vectX, startPosition.Y + vectY] == null)
                     return true;
-                }
 
                 // Check if EATING is possible
-                else if (turnBlack)
-                {
-                    if (board[startPosition.X +1, startPosition.Y].State ==
-                        State.White &&
-                        board[startPosition.X +2, startPosition.Y] == null)
+                if (board[startPosition.X, startPosition.Y].State !=
+                    board[startPosition.X +1, startPosition.Y].State)
+                    if (board[startPosition.X + 2, startPosition.Y] == null)
                         return true;
-                }
-                else if (!turnBlack)
-                {
-                    if (board[startPosition.X +1, startPosition.Y].State ==
-                        State.Black &&
-                        board[startPosition.X +2, startPosition.Y] == null)
+
+                if (board[startPosition.X, startPosition.Y].State !=
+                board[startPosition.X + vectX, startPosition.Y + vectY].State)
+                    if (board[startPosition.X + vectX * 2, startPosition.Y + vectY * 2] == null)
                         return true;
-                }
             }
 
             // Piece is in RIGHT COLUM
             else if (startPosition.X == board.GetLength(0) -1)
             {
+                int vectX = -1;
+                int vectY;
+
+                if (startPosition.Y < 2)
+                    vectY = 1;
+                else
+                    vectY = -1;
+
                 // Piece to the LEFT is empty
-                if (board[startPosition.X -1, startPosition.Y] == null)
-                {
+                if (board[startPosition.X -1, startPosition.Y] == null ||
+                    board[startPosition.X + vectX, startPosition.Y + vectY] == null)
                     return true;
-                }
 
                 // Check if EATING is possible
-                else if (turnBlack)
-                {
-                    if (board[startPosition.X -1, startPosition.Y].State ==
-                        State.White &&
-                        board[startPosition.X -2, startPosition.Y] == null)
+                if (board[startPosition.X, startPosition.Y].State !=
+                    board[startPosition.X - 1, startPosition.Y].State)
+                    if (board[startPosition.X - 2, startPosition.Y] == null)
                         return true;
-                }
-                else if (!turnBlack)
-                {
-                    if (board[startPosition.X -1, startPosition.Y].State ==
-                        State.Black &&
-                        board[startPosition.X -2, startPosition.Y] == null)
+
+                if (board[startPosition.X, startPosition.Y].State !=
+                board[startPosition.X + vectX, startPosition.Y + vectY].State)
+                    if (board[startPosition.X + vectX * 2, startPosition.Y + vectY * 2] == null)
                         return true;
-                }
             }
 
             // If piece is in a position that can move diagonally
             if ((startPosition.X == 0 || startPosition.X == 2) &&
-                (startPosition.Y == 1 || startPosition.Y == 3))
+                (startPosition.Y == 0 || startPosition.Y == 1 ||
+                startPosition.Y == 3 || startPosition.Y == 4))
             {
                 // Variables to define diagonal movement
                 int vectX, vectY;
@@ -511,47 +495,30 @@ namespace Projeto3_LP2_2020.Common
                     vectX = 1;
                 else
                     vectX = -1;
-                if (startPosition.Y == 1)
-                    vectY = -1;
-                else
+
+                if (startPosition.Y == 0 || startPosition.Y == 1)
                     vectY = 1;
+                else
+                    vectY = -1;
 
                 if (board[startPosition.X + vectX, startPosition.Y + vectY] == null)
                     return true;
 
-                if (turnBlack)
-                {
-                    if (
-                        board[startPosition.X + vectX, startPosition.Y + vectY].State ==
-                        State.White &&
-                        board[startPosition.X + vectX*2, startPosition.Y + vectY*2] ==
-                        null)
+                if (board[startPosition.X, startPosition.Y].State !=
+                        board[startPosition.X + vectX, startPosition.Y + vectY].State)
+                    if (board[startPosition.X + vectX*2, startPosition.Y + vectY*2] == null)
                         return true;
-                }
-                else if (!turnBlack)
-                {
-                    if (
-                        board[startPosition.X + vectX, startPosition.Y + vectY].State ==
-                        State.Black &&
-                        board[startPosition.X + vectX*2, startPosition.Y + vectY*2] ==
-                        null)
-                        return true;
-                }
             }
 
             // Piece is on TOP ROW & Piece bellow is empty
             if (startPosition.Y == 0 &&
                 board[startPosition.X, startPosition.Y +1] == null)
-            {
                 return true;
-            }
 
             // Piece is on BOTTOM ROW & Piece above is empty
             else if (startPosition.Y == board.GetLength(1) -1 &&
                 board[startPosition.X, startPosition.Y -1] == null)
-            {
                 return true;
-            }
 
             return false;
         }

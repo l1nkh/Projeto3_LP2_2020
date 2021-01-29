@@ -22,10 +22,6 @@ namespace Projeto3_LP2_2020.Common
             blackPieceSet = new Piece[6];
             whitePieceSet = new Piece[6];
 
-            // Assign the appropriate values for each piece in boardArray and 
-            // fill both PieceSets
-            board.AssignStates();
-
             board = new Board (boardArray, blackPieceSet, whitePieceSet);
         }
 
