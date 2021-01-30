@@ -251,7 +251,7 @@ namespace Projeto3_LP2_2020.Common
                         }
                     }
                 }
-                //
+
                 if (pos.X == 2)
                 {
                     if (pos.Y == 0)
@@ -317,18 +317,6 @@ namespace Projeto3_LP2_2020.Common
                         }
                     }
                 }
-                /*else if (pos.X == 2 && (direction == 1 || direction == 4))
-                {
-                    vect.X = -1;
-                }
-                if (pos.Y == 1 && (direction == 4 || direction == 6))
-                {
-                    vect.Y = 1;
-                }
-                else if (pos.Y == 3 && (direction == 1 || direction == 3))
-                {
-                    vect.X = -1;
-                }*/
             }
             // If on top center of board
             else if (pos.Y == 0 && pos.X == 1)
@@ -368,45 +356,6 @@ namespace Projeto3_LP2_2020.Common
                     vect.Y = 0;
                 }
             }
-            // If on LEFT of board
-            /*else if (pos.X == 0)
-            {
-                if (direction == 4 && pos.X > 0)
-                {
-                    vect.X = -1;
-                    vect.Y = 0;
-                }
-                else if (direction == 5)
-                {
-                    vect.X = 0;
-                    vect.Y = -1;
-                }
-                else if (direction == 6 && pos.X < board.GetLength(0) -1)
-                {
-                    vect.X = 1;
-                    vect.Y = 0;
-                }
-            }
-            // If on RIGHT of board
-            else if (pos.X == board.GetLength(0) -1)
-            {
-                if (direction == 1 && pos.X > 0)
-                {
-                    vect.X = -1;
-                    vect.Y = 0;
-                }
-                else if (direction == 2)
-                {
-                    vect.X = 0;
-                    vect.Y = -1;
-                }
-                else if (direction == 3 && pos.X < board.GetLength(0) -1)
-                {
-                    vect.X = 1;
-                    vect.Y = 0;
-                }
-            }*/
-
             return vect;
         }
 
@@ -432,17 +381,19 @@ namespace Projeto3_LP2_2020.Common
             {
                 return false;
             }
-
+            //If there is a diferent piece in path check it it can be eaten 
             else if (board[startingPos.X, startingPos.Y].State !=
                     board[startingPos.X + vector.X, startingPos.Y + vector.Y].State)
             {
-                if (board[
-                        startingPos.X + (vector.X*2), startingPos.Y + (vector.Y*2)]
+                //Can i eat the piece?
+                if (board[startingPos.X + (vector.X*2), startingPos.Y + (vector.Y*2)]
                         == null)
                 {
+                    //Eat piece
                     board[startingPos.X + (vector.X*2), startingPos.Y + (vector.Y*2)] =
                     board[startingPos.X, startingPos.Y];
                     board[startingPos.X, startingPos.Y] = null;
+                    RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
                     board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
                     return true;
                 }
@@ -653,6 +604,27 @@ namespace Projeto3_LP2_2020.Common
                 return true;
 
             return false;
+        }
+        private void RemovePiece(Piece position)
+        {
+            if (position.State == State.Black)
+            {
+                for (int i = 0; i < blackPieceSet.Length; i++)
+                {
+                    if (blackPieceSet[i].Pos == position.Pos)
+                    {
+                        blackPieceSet[i] = null;
+                    }
+                }
+            }
+            else
+                for (int i = 0; i < whitePieceSet.Length; i++)
+                {
+                    if (whitePieceSet[i].Pos == position.Pos)
+                    {
+                        whitePieceSet[i] = null;
+                    }
+                }
         }
     }
 }

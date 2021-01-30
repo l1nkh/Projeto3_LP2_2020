@@ -38,13 +38,13 @@ namespace Projeto3_LP2_2020.Common
             if (turnBlack)
             {
                 // If piece is alive, see if it is surrounded
-                if (blackPieceSet[serialNumber].IsAlive)
+                if (blackPieceSet[serialNumber] != null)
                     return board.HasMove(serialNumber, turnBlack);
             }
             else
             {
                 // If piece is alive, see if it is surrounded
-                if (whitePieceSet[serialNumber].IsAlive)
+                if (whitePieceSet[serialNumber] != null)
                     return board.HasMove(serialNumber, turnBlack);
             }
 
