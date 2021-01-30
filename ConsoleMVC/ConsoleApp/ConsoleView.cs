@@ -44,12 +44,18 @@ namespace Projeto3_LP2_2020.ConsoleApp
         /// Message writing board and requesting which Piece the user
         /// wants to move.
         /// </summary>
-        private void RequestPiece()
+        private void RequestPiece(bool turnBlack)
         {
+            Console.Clear();
+            if(turnBlack)
+                Console.WriteLine("\n[BLACK] Player Turn\n");
+            else
+                Console.WriteLine("\n[WHITE] Player Turn\n");
+
             // Write Board
             Console.WriteLine(controller.GetBoard());
 
-            Console.WriteLine("Which piece do you want to move?");
+            Console.WriteLine("\nWhich piece do you want to move?");
             Console.WriteLine("(write the number of the piece)");
         }
 
@@ -103,9 +109,9 @@ namespace Projeto3_LP2_2020.ConsoleApp
         /// gameState accordingly.
         /// </summary>
         /// <returns>Updated gameState</returns>
-        private GameState UpdateGameState(bool turnBlack)
+        private GameState UpdateGameState(bool tb)
         {
-            if (controller.CheckForWin(turnBlack))
+            if (controller.CheckForWin(tb))
             {
                 return GameState.VictoryScreen;
             }
@@ -114,7 +120,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
                 turnBlack = !turnBlack;
                 // Reset variable for the next turn's selection
                 validPieceNum = 0;
-                RequestPiece();
+                RequestPiece(turnBlack);
                 return GameState.SelectPiece;
             }
         }
@@ -166,14 +172,14 @@ namespace Projeto3_LP2_2020.ConsoleApp
                                 turnBlack = true;
                                 // Move to SelectPiece
                                 gameState = GameState.SelectPiece;
-                                RequestPiece();
+                                RequestPiece(turnBlack);
                                 break;
                             // 'White' plays first
                             case ConsoleKey.D2:
                                 turnBlack = false;
                                 // Move to SelectPiece
                                 gameState = GameState.SelectPiece;
-                                RequestPiece();
+                                RequestPiece(turnBlack);
                                 break;
                             // Close Game
                             case ConsoleKey.Escape:

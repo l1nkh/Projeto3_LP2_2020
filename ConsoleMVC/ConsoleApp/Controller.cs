@@ -15,7 +15,7 @@ namespace Projeto3_LP2_2020.ConsoleApp
 
         public string GetBoard()
         {
-            string board = "\n";
+            string board = "----------------------------\n\n";
             // Row by Row
             for (int r = 0; r<gameManager.BoardArray.GetLength(1); r++)
             {
@@ -37,8 +37,10 @@ namespace Projeto3_LP2_2020.ConsoleApp
 
                     if ((r == 0 || r == 4) && c < 3)
                         board += "     ";
-                    else if ((r == 1 || r == 2 || r == 3) && c < 3)
+                    else if ((r == 1 || r == 3) && c < 3)
                         board += "  ";
+                    else if (r == 2)
+                        board += "     ";
                 }
                 board += "\n";
             }
