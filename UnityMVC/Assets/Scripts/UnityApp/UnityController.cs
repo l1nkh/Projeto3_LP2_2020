@@ -35,7 +35,6 @@ namespace Projeto3_LP2_2020.UnityApp
         public void CheckPiece(Button piece)
         {
             int pieceNum = Convert.ToInt32(piece.transform.GetChild(0).name);
-            //string pieceState = piece.transform.GetChild(2).name;
 
             // Calls 'Common' method checking piece's Status
             if (container.GameManager.IsPieceAvailable(pieceNum, TurnBlack))
@@ -44,7 +43,6 @@ namespace Projeto3_LP2_2020.UnityApp
                 previousPieceNum = pieceNum;
                 directions.SetActive(true); 
                 pieceSelector.SetActive(false);
-                //previousPieceState = pieceState;
             }
             else
             {

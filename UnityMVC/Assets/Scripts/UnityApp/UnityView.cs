@@ -35,10 +35,6 @@ namespace Projeto3_LP2_2020.UnityApp
             {
                 button.GetComponentInChildren<Text>().text = " ";
             }
-            else if (!container.GameManager.BoardArray[x, y].IsAlive)
-            {
-                button.GetComponentInChildren<Text>().text = " ";
-            }
             else
                 button.GetComponentInChildren<Text>().text = buttonColor + $"{buttonIdentifier}";
         }
