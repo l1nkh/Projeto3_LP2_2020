@@ -13,7 +13,6 @@ namespace Projeto3_LP2_2020.UnityApp
         public void UpdatePiece(Button button)
         {
             string buttonPos = button.transform.GetChild(1).name;
-            string buttonColor = button.transform.GetChild(2).name;
             char[] CharPos = buttonPos.ToCharArray();
             int x = (int)char.GetNumericValue(CharPos[0]);
             int y = (int)char.GetNumericValue(CharPos[1]);
@@ -21,7 +20,16 @@ namespace Projeto3_LP2_2020.UnityApp
             if (container.GameManager.BoardArray[x, y] != null)
             {
                 buttonIdentifier = container.GameManager.BoardArray[x, y].serialNumber + 1;
+
+                if (container.GameManager.BoardArray[x, y].State == State.White)
+                {
+                    button.transform.GetChild(2).name = "W";
+                }
+                else
+                    button.transform.GetChild(2).name = "B";
             }
+
+            string buttonColor = button.transform.GetChild(2).name;
 
             if (container.GameManager.BoardArray[x, y] == null)
             {
