@@ -7,7 +7,7 @@ namespace Projeto3_LP2_2020.Common
     /// <summary>
     /// Position that stores a X and Y value.
     /// </summary>
-    public class Position
+    public struct Position
     {
         /// <summary>
         /// Column (X).
