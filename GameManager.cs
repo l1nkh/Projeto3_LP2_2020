@@ -59,12 +59,12 @@ namespace Projeto3_LP2_2020.Common
             // piece's position
             if ((pos.X == 0 && (direction == 1 || direction == 4)) ||
                 (pos.X == 2 && (direction == 3 || direction == 6)) ||
-                (pos.Y == 0 && (direction == 1 || direction == 2 || direction == 3)) ||
+                (pos.Y == 0 && direction == 2) ||
                 (pos.Y == 1 && pos.X == 0 && direction == 4) ||
                 (pos.Y == 1 && pos.X == 2 && direction == 6) ||
                 (pos.Y == 3 && pos.X == 0 && direction == 1) ||
                 (pos.Y == 3 && pos.X == 2 && direction == 3) ||
-                (pos.Y == 4 && (direction == 4 || direction == 5 || direction == 6)))
+                (pos.Y == 4 && direction == 5))
             {
                 return false;
             }
@@ -89,7 +89,7 @@ namespace Projeto3_LP2_2020.Common
                 // If any piece is alive, then the game is not over.
                 foreach (Piece piece in whitePieceSet)
                 {
-                    if (piece.IsAlive)
+                    if (piece != null)
                         return false;
                 }
             }
@@ -100,7 +100,7 @@ namespace Projeto3_LP2_2020.Common
                 // If any piece is alive, then the game is not over.
                 foreach (Piece piece in blackPieceSet)
                 {
-                    if (piece.IsAlive)
+                    if (piece != null)
                         return false;
                 }
             }
