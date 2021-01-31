@@ -3,9 +3,15 @@ using Projeto3_LP2_2020.Common;
 
 namespace Projeto3_LP2_2020.ConsoleApp
 {
-    static class Program
+    /// <summary>
+    /// Class that starts the game.
+    /// </summary>
+    internal static class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Program starts here.
+        /// </summary>
+        private static void Main()
         {
                 Controller controller = new Controller();
                 ConsoleView view = new ConsoleView(controller);

@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConsoleApp</name>
+    </assembly>
+    <members>
+        <member name="T:Projeto3_LP2_2020.ConsoleApp.ConsoleView">
+            <summary>
+            Recieves input and calls methods according to recieved input.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.ConsoleView.#ctor(Projeto3_LP2_2020.ConsoleApp.Controller)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="controller">Receuves the controller.</param>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.ConsoleView.Start">
+            <summary>
+            Starting Message.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.ConsoleView.RequestTurnOrder">
+            <summary>
+            Message requesting users to specify which player goes first.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.ConsoleView.RequestPiece(System.Boolean)">
+            <summary>
+            Message writing board and requesting which Piece the user.
+            wants to move.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.ConsoleView.RequestDirection">
+            <summary>
+            Message requesting user to specify direction of movement.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.ConsoleView.ShowHelp">
+            <summary>
+            Message of the instructions and rules of the game.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.ConsoleView.UpdateGameState(System.Boolean)">
+            <summary>
+            Checks if a player won the game, changing the
+            gameState accordingly.
+            </summary>
+            <returns>Updated gameState.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.ConsoleView.GetInput(Projeto3_LP2_2020.Common.GameState)">
+            <summary>
+            Listens to specific input according to current gameState.
+            </summary>
+            <param name="gameState">The current stage of the game.</param>
+            <returns>The updated gameState (if the expected actions
+            happened).</returns>
+        </member>
+        <member name="T:Projeto3_LP2_2020.ConsoleApp.Controller">
+            <summary>
+            Manipulates the game itself using the common library's GameManager class.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.Controller.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.Controller.GetBoard">
+            <summary>
+            Draws the board.
+            </summary>
+            <returns>returns the board as a string..</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.Controller.CheckPiece(System.Int32,System.Boolean)">
+            <summary>
+            Check if the requested piece of the player is available (not dead).
+            </summary>
+            <param name="pieceNum">Int identifying the specific piece of
+            the player.</param>
+            <param name="turnBlack">Bool identifying the current player
+            (helps find its pieces).</param>
+            <returns>Bool, true if possible choice, false if not.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.Controller.CheckForDirection(System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            Check if the direction chosen by the player leads to an accessible
+            space. If so, change position.
+            </summary>
+            <param name="pieceNum">The piece selected by the player to be
+            moved.</param>
+            <param name="turnBlack">Bool identifying the current player
+            (helps find its pieces).</param>
+            <param name="directionNumber">The direction selected by the
+            player.</param>
+            <returns>Bool, true if direction is possible, false if not.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.Controller.CheckForWin(System.Boolean)">
+            <summary>
+            Verifies if there is a winner.
+            </summary>
+            <param name="turnBlack">Receives the turn.</param>
+            <returns>returns a bool that verfies a win state or not.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.Controller.Run(Projeto3_LP2_2020.ConsoleApp.ConsoleView)">
+            <summary>
+            Starts the game loop.
+            </summary>
+            <param name="consoleView">Receives the consoleView.</param>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.Controller.Quit">
+            <summary>
+            Finishes the program.
+            </summary>
+        </member>
+        <member name="T:Projeto3_LP2_2020.ConsoleApp.Program">
+            <summary>
+            Class that starts the game.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.ConsoleApp.Program.Main">
+            <summary>
+            Program starts here.
+            </summary>
+        </member>
+    </members>
+</doc>
