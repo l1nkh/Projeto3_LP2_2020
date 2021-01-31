@@ -5,11 +5,19 @@ using UnityEngine.UI;
 
 namespace Projeto3_LP2_2020.UnityApp
 {
+    /// <summary>
+    /// this class updates the buttons to its corresponding 
+    /// piece in the board.
+    /// </summary>
     public class UnityView : MonoBehaviour
     {
         [SerializeField] private Container container;
 
         private int buttonIdentifier = 0;
+        /// <summary>
+        /// Updates the button text to its corresponding piece.
+        /// </summary>
+        /// <param name="button"></param>
         public void UpdatePiece(Button button)
         {
             string buttonPos = button.transform.GetChild(1).name;
@@ -36,7 +44,8 @@ namespace Projeto3_LP2_2020.UnityApp
                 button.GetComponentInChildren<Text>().text = " ";
             }
             else
-                button.GetComponentInChildren<Text>().text = buttonColor + $"{buttonIdentifier}";
+                button.GetComponentInChildren<Text>().text = buttonColor
+                    + $"{buttonIdentifier}";
         }
     }
 }
