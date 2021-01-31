@@ -2,15 +2,18 @@ namespace Projeto3_LP2_2020.Common
 {
     /// <summary>
     /// Class that communicates with MVC components, works as a
-    /// façade for Common
+    /// façade for Common.
     /// </summary>
     public class GameManager
     {
-        private Piece[,] boardArray;
-        private Piece[] blackPieceSet;
-        private Piece[] whitePieceSet;
-        private Board board;
-        public Piece[,] BoardArray {get => boardArray;}
+        private readonly Piece[] blackPieceSet;
+        private readonly Piece[] whitePieceSet;
+        private readonly Board board;
+
+        /// <summary>
+        /// Gets the board.
+        /// </summary>
+        public Piece[,] BoardArray { get; }
 
         /// <summary>
         /// Create the collections of Pieces that will be shared with the Board.
@@ -18,11 +21,11 @@ namespace Projeto3_LP2_2020.Common
         public GameManager()
         {
             // Set the dimensions for the boardArray and the pieceSets
-            boardArray = new Piece[3, 5];
+            BoardArray = new Piece[3, 5];
             blackPieceSet = new Piece[6];
             whitePieceSet = new Piece[6];
 
-            board = new Board (boardArray, blackPieceSet, whitePieceSet);
+            board = new Board(BoardArray, blackPieceSet, whitePieceSet);
         }
 
         /// <summary>
@@ -51,6 +54,13 @@ namespace Projeto3_LP2_2020.Common
             return false;
         }
 
+        /// <summary>
+        /// Checks if the selected direction is valid.
+        /// </summary>
+        /// <param name="serialNumber">Piece identifier number.</param>
+        /// <param name="turnBlack">Corrent turn.</param>
+        /// <param name="direction">selected direction.</param>
+        /// <returns>true, if valid direction, false if not valid.</returns>
         public bool CheckDirection(int serialNumber, bool turnBlack, int direction)
         {
             Position pos = board.GetPosition(serialNumber, turnBlack);
@@ -93,6 +103,7 @@ namespace Projeto3_LP2_2020.Common
                         return false;
                 }
             }
+
             // If its the 'White' player's turn,
             // check the 'Black' player's pieces
             if (!turnBlack)
@@ -104,6 +115,7 @@ namespace Projeto3_LP2_2020.Common
                         return false;
                 }
             }
+
             return true;
         }
     }

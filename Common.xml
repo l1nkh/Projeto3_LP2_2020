@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common</name>
+    </assembly>
+    <members>
+        <member name="T:Projeto3_LP2_2020.Common.Board">
+            <summary>
+            Class that consists of pieces and works as a board for the game.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.Board.board">
+            <summary>
+            Bi-dimensional array where we will store the pieces of the game.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.#ctor(Projeto3_LP2_2020.Common.Piece[0:,0:],Projeto3_LP2_2020.Common.Piece[],Projeto3_LP2_2020.Common.Piece[])">
+            <summary>
+            /// Create our board that creates it with the correct space.
+            </summary>
+            <param name="boardArray">Board with all pieces.</param>
+            <param name="blackPieceSet">Board with black pieces.</param>
+            <param name="whitePieceSet">Board with white pieces.</param>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.SetInitialLocation(System.Int32,System.Int32,Projeto3_LP2_2020.Common.State,System.Int32)">
+            <summary>
+            Set the initial position of the method. Used in AssignStates().
+            </summary>
+            <param name="x">Row.</param>
+            <param name="y">Column.</param>
+            <param name="state">White, Black or Blocked.</param>
+            <param name="serialNumber">Piece specific number.</param>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.AssignStates">
+            <summary>
+            Method to assign the initial states of the game.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.HasMove(System.Int32,System.Boolean)">
+            <summary>
+            Checks if a piece as possible spaces to move to.
+            </summary>
+            <param name="serialNumber">Number identifying a specific piece in
+            the player's set.</param>
+            <param name="turnBlack">Shows which player's turn it is.</param>
+            <returns>Boolean, true if the piece has spaces it can move to, false
+            if not.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.GetPosition(System.Int32,System.Boolean)">
+            <summary>
+            Get the Pos property of a specific piece.
+            </summary>
+            <param name="serialNumber">Number identifying a specific piece in
+            the player's set.</param>
+            <param name="turnBlack">Shows which player's turn it is.</param>
+            <returns>Pos of the requested piece.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.CanDoMove(Projeto3_LP2_2020.Common.Position,System.Int32)">
+            <summary>
+            Gets the movement "vector" according to the user's input and makes
+            transformation if valid.
+            </summary>
+            <param name="pos">Position of the selected piece.</param>
+            <param name="direction">Direction option as inputted by the
+            player.</param>
+            <returns>Boolean, true if transformation was done, false if
+            not.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.GetVector(Projeto3_LP2_2020.Common.Position,System.Int32)">
+            <summary>
+            Creates a "vector" according to player's input and the selected
+            piece's position.
+            </summary>
+            <param name="pos">Selected piece's position.</param>
+            <param name="direction">Direction option as inputted by the
+            player.</param>
+            <returns>Position with values describing the movement
+            "vector".</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.AttemptMove(Projeto3_LP2_2020.Common.Position,Projeto3_LP2_2020.Common.Position)">
+            <summary>
+            Checks if any move is possible and does it if so.
+            </summary>
+            <param name="vector">Specifies the direction were a space must be
+            searched.</param>
+            <param name="startingPos">Value with the position of the selected
+            piece.</param>
+            <returns>Boolean, true if transformation was done with success,
+            false if not.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Board.SearchFreeSpace(Projeto3_LP2_2020.Common.Position,System.Boolean)">
+            <summary>
+            Search the spaces around a piece to see if any is null or if any
+            can be eaten (if they are pieces of the adversary).
+            </summary>
+            <param name="startPosition">Pos of the piece searching for
+            space.</param>
+            <param name="turnBlack">Corrent turn.</param>
+            <returns>Boolean, true if there is any free space, false if
+            not.</returns>
+        </member>
+        <member name="T:Projeto3_LP2_2020.Common.GameManager">
+            <summary>
+            Class that communicates with MVC components, works as a
+            façade for Common.
+            </summary>
+        </member>
+        <member name="P:Projeto3_LP2_2020.Common.GameManager.BoardArray">
+            <summary>
+            Gets the board.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.GameManager.#ctor">
+            <summary>
+            Create the collections of Pieces that will be shared with the Board.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.GameManager.IsPieceAvailable(System.Int32,System.Boolean)">
+            <summary>
+            Checks if the requested piece is alive and has possible movement.
+            </summary>
+            <param name="serialNumber">Number identifying a specific piece in
+            the player's set.</param>
+            <param name="turnBlack">Shows which player's turn it is.</param>
+            <returns>Boolean, true if the piece is available to move, false
+            if not.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.GameManager.CheckDirection(System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            Checks if the selected direction is valid.
+            </summary>
+            <param name="serialNumber">Piece identifier number.</param>
+            <param name="turnBlack">Corrent turn.</param>
+            <param name="direction">selected direction.</param>
+            <returns>true, if valid direction, false if not valid.</returns>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.GameManager.CheckForWin(System.Boolean)">
+            <summary>
+            Checks if the current player's adversary's pieces are all dead.
+            </summary>
+            <param name="turnBlack">Shows which player's turn it is.</param>
+            <returns>Boolean, true if every adversary piece is dead, false
+            if not.</returns>
+        </member>
+        <member name="T:Projeto3_LP2_2020.Common.GameState">
+            <summary>
+            Enumeration with the possible game states.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.GameState.Menu">
+            <summary>
+            Game is in Menu.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.GameState.TurnSelection">
+            <summary>
+            Game is selecting with player plays first.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.GameState.SelectPiece">
+            <summary>
+            Game is selecting a piece.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.GameState.SelectDirection">
+            <summary>
+            Game is selecting a direction.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.GameState.VictoryScreen">
+            <summary>
+            The game as ended with a victorious player.
+            </summary>
+        </member>
+        <member name="T:Projeto3_LP2_2020.Common.Piece">
+            <summary>
+            A piece in the game that contains a State and a Position.
+            </summary>
+        </member>
+        <member name="P:Projeto3_LP2_2020.Common.Piece.State">
+            <summary>
+            Gets the state of the piece.
+            </summary>
+        </member>
+        <member name="P:Projeto3_LP2_2020.Common.Piece.SerialNumber">
+            <summary>
+            Gets piece specific Number.
+            </summary>
+        </member>
+        <member name="P:Projeto3_LP2_2020.Common.Piece.Pos">
+            <summary>
+            Gets or sets the position of the piece.
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Piece.#ctor(Projeto3_LP2_2020.Common.State,System.Int32)">
+            <summary>
+            Piece.
+            </summary>
+            <param name="selectedState">White, Black or Blocked.</param>
+            <param name="serialNumber">Piece number.</param>
+        </member>
+        <member name="T:Projeto3_LP2_2020.Common.Position">
+            <summary>
+            Position that stores a X and Y value.
+            </summary>
+        </member>
+        <member name="P:Projeto3_LP2_2020.Common.Position.X">
+            <summary>
+            Gets or sets Column (Y).
+            </summary>
+        </member>
+        <member name="P:Projeto3_LP2_2020.Common.Position.Y">
+            <summary>
+            Gets or sets Row (Y).
+            </summary>
+        </member>
+        <member name="M:Projeto3_LP2_2020.Common.Position.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructor to make a Position.
+            </summary>
+            <param name="x">Column (X).</param>
+            <param name="y">Row (Y).</param>
+        </member>
+        <member name="T:Projeto3_LP2_2020.Common.State">
+            <summary>
+            This enumeration contains all the Piece states.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.State.White">
+            <summary>
+            White piece.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.State.Black">
+            <summary>
+            Black piece.
+            </summary>
+        </member>
+        <member name="F:Projeto3_LP2_2020.Common.State.Blocked">
+            <summary>
+            Blocked piece.
+            </summary>
+        </member>
+    </members>
+</doc>

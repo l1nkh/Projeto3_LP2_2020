@@ -10,14 +10,19 @@ namespace Projeto3_LP2_2020.Common
     public class Piece
     {
         /// <summary>
-        /// The state of the piece.
+        /// Gets the state of the piece.
         /// </summary>
-        public State State { get; private set;}
-
-        public readonly int serialNumber;
+        public State State { get; }
 
         /// <summary>
-        /// The position of the piece.
+        /// Gets piece specific Number.
+        /// </summary>
+        public int SerialNumber => serialNumber;
+
+        private readonly int serialNumber;
+
+        /// <summary>
+        /// Gets or sets the position of the piece.
         /// </summary>
         public Position Pos { get; set; }
 
@@ -25,6 +30,7 @@ namespace Projeto3_LP2_2020.Common
         /// Piece.
         /// </summary>
         /// <param name="selectedState">White, Black or Blocked.</param>
+        /// <param name="serialNumber">Piece number.</param>
         public Piece(State selectedState, int serialNumber)
         {
             this.serialNumber = serialNumber;

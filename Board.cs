@@ -12,18 +12,22 @@ namespace Projeto3_LP2_2020.Common
         /// <summary>
         /// Bi-dimensional array where we will store the pieces of the game.
         /// </summary>
-        private Piece[,] board;
-        private Piece[] blackPieceSet;
-        private Piece[] whitePieceSet;
+        private readonly Piece[,] board;
+        private readonly Piece[] blackPieceSet;
+        private readonly Piece[] whitePieceSet;
 
         /// <summary>
-        /// Create our board that creates it with the correct space.
+        /// /// Create our board that creates it with the correct space.
         /// </summary>
-        public Board(Piece[,] boardArray,
-                     Piece[] blackPieceSet, Piece[] whitePieceSet)
+        /// <param name="boardArray">Board with all pieces.</param>
+        /// <param name="blackPieceSet">Board with black pieces.</param>
+        /// <param name="whitePieceSet">Board with white pieces.</param>
+        public Board(
+            Piece[,] boardArray, Piece[] blackPieceSet, Piece[] whitePieceSet)
         {
             // Create "board" with correct dimensions
             board = boardArray;
+
             // Create sets of pieces for each player/color
             this.blackPieceSet = blackPieceSet;
             this.whitePieceSet = whitePieceSet;
@@ -39,12 +43,15 @@ namespace Projeto3_LP2_2020.Common
         /// <param name="x">Row.</param>
         /// <param name="y">Column.</param>
         /// <param name="state">White, Black or Blocked.</param>
-        /// <returns>Assigns the piece created in the board.</returns>
+        /// <param name="serialNumber">Piece specific number.</param>
         private void SetInitialLocation(
                                 int x, int y, State state, int serialNumber)
         {
-            Piece piece = new Piece(state, serialNumber);
-            piece.Pos = new Position(x, y);
+            Piece piece = new Piece(state, serialNumber)
+            {
+                Pos = new Position(x, y),
+            };
+
             // Add piece to the board in its initial position.
             board[x, y] = piece;
 
@@ -107,7 +114,7 @@ namespace Projeto3_LP2_2020.Common
         /// <param name="serialNumber">Number identifying a specific piece in
         /// the player's set.</param>
         /// <param name="turnBlack">Shows which player's turn it is.</param>
-        /// <returns>Pos of the requested piece</returns>
+        /// <returns>Pos of the requested piece.</returns>
         public Position GetPosition(int serialNumber, bool turnBlack)
         {
             if (turnBlack)
@@ -120,7 +127,7 @@ namespace Projeto3_LP2_2020.Common
         /// Gets the movement "vector" according to the user's input and makes
         /// transformation if valid.
         /// </summary>
-        /// <param name="pos">Position of the selected piece</param>
+        /// <param name="pos">Position of the selected piece.</param>
         /// <param name="direction">Direction option as inputted by the
         /// player.</param>
         /// <returns>Boolean, true if transformation was done, false if
@@ -139,10 +146,10 @@ namespace Projeto3_LP2_2020.Common
         /// <param name="direction">Direction option as inputted by the
         /// player.</param>
         /// <returns>Position with values describing the movement
-        /// "vector"</returns>
+        /// "vector".</returns>
         public Position GetVector(Position pos, int direction)
         {
-            Position vect = new Position (0, 0);
+            Position vect = new Position(0, 0);
 
             // If center piece
             if (pos.X == 1 && pos.Y == 2)
@@ -152,32 +159,38 @@ namespace Projeto3_LP2_2020.Common
                     vect.X = -1;
                     vect.Y = -1;
                 }
+
                 if (direction == 2)
                 {
                     vect.X = 0;
                     vect.Y = -1;
                 }
+
                 if (direction == 3)
                 {
                     vect.X = 1;
                     vect.Y = -1;
                 }
+
                 if (direction == 4)
                 {
                     vect.X = -1;
                     vect.Y = 1;
                 }
+
                 if (direction == 5)
                 {
                     vect.X = 0;
                     vect.Y = 1;
                 }
+
                 if (direction == 6)
                 {
                     vect.X = 1;
                     vect.Y = 1;
                 }
             }
+
             // If close to center on center column
             else if (pos.X == 1 && (pos.Y == 1 || pos.Y == 3))
             {
@@ -202,6 +215,7 @@ namespace Projeto3_LP2_2020.Common
                     vect.Y = 1;
                 }
             }
+
             // If on diagonals of board
             else if ((pos.X == 0 || pos.X == 2) && pos.Y != 2)
             {
@@ -220,6 +234,7 @@ namespace Projeto3_LP2_2020.Common
                             vect.Y = 1;
                         }
                     }
+
                     if (pos.Y == 1)
                     {
                         if (direction == 3)
@@ -238,6 +253,7 @@ namespace Projeto3_LP2_2020.Common
                             vect.Y = -1;
                         }
                     }
+
                     if (pos.Y == 3)
                     {
                         if (direction == 3 || direction == 2 )
@@ -256,6 +272,7 @@ namespace Projeto3_LP2_2020.Common
                             vect.Y = 1;
                         }
                     }
+
                     if (pos.Y == 4)
                     {
                         if (direction == 3 || direction == 2)
@@ -285,7 +302,8 @@ namespace Projeto3_LP2_2020.Common
                             vect.X = 0;
                             vect.Y = 1;
                         }
-                    }                 
+                    }
+
                     if (pos.Y == 1)
                     {
                         if (direction == 3 || direction == 2)
@@ -304,6 +322,7 @@ namespace Projeto3_LP2_2020.Common
                             vect.Y = 1;
                         }
                     }
+
                     if (pos.Y == 3)
                     {
                         if (direction == 4)
@@ -316,12 +335,13 @@ namespace Projeto3_LP2_2020.Common
                             vect.X = -1;
                             vect.Y = -1;
                         }
-                        else if (direction ==6 || direction == 5)
+                        else if (direction == 6 || direction == 5)
                         {
                             vect.X = 0;
                             vect.Y = 1;
                         }
                     }
+
                     if (pos.Y == 4)
                     {
                         if (direction == 4)
@@ -337,6 +357,7 @@ namespace Projeto3_LP2_2020.Common
                     }
                 }
             }
+
             // If on top center of board
             else if (pos.Y == 0 && pos.X == 1)
             {
@@ -356,6 +377,7 @@ namespace Projeto3_LP2_2020.Common
                     vect.Y = 0;
                 }
             }
+
             // If on bottom center of board
             else if ((pos.Y == board.GetLength(1) - 1) && pos.X == 1)
             {
@@ -375,6 +397,7 @@ namespace Projeto3_LP2_2020.Common
                     vect.Y = 0;
                 }
             }
+
             return vect;
         }
 
@@ -382,17 +405,17 @@ namespace Projeto3_LP2_2020.Common
         /// Checks if any move is possible and does it if so.
         /// </summary>
         /// <param name="vector">Specifies the direction were a space must be
-        /// searched</param>
+        /// searched.</param>
         /// <param name="startingPos">Value with the position of the selected
-        /// piece</param>
+        /// piece.</param>
         /// <returns>Boolean, true if transformation was done with success,
-        /// false if not</returns>
+        /// false if not.</returns>
         public bool AttemptMove(Position vector, Position startingPos)
         {
             if (board[startingPos.X + vector.X, startingPos.Y + vector.Y] == null)
             {
-                board[startingPos.X, startingPos.Y].Pos = new Position(startingPos.X + vector.X,
-                                startingPos.Y + vector.Y);
+                board[startingPos.X, startingPos.Y].Pos = new Position(
+                    startingPos.X + vector.X, startingPos.Y + vector.Y);
 
                 board[startingPos.X + vector.X, startingPos.Y + vector.Y] =
                 board[startingPos.X, startingPos.Y];
@@ -404,108 +427,92 @@ namespace Projeto3_LP2_2020.Common
             {
                 return false;
             }
-            //If there is a diferent piece in path check it it can be eaten 
+
+            // If there is a diferent piece in path check it it can be eaten 
             else if (board[startingPos.X, startingPos.Y].State !=
                     board[startingPos.X + vector.X, startingPos.Y + vector.Y].State)
             {
                 if (startingPos.X == 1 && startingPos.Y == 2)
                 {
-                    if (vector.X < 0)
-                    {
-                        //Can i eat the piece?
-                        if (board[startingPos.X - 1, startingPos.Y + (vector.Y * 2)]
+                    if (vector.X < 0 && board[startingPos.X - 1, startingPos.Y + (vector.Y * 2)]
                        == null)
-                        {
-                            //Eat piece
-                            board[startingPos.X, startingPos.Y].Pos = new Position(startingPos.X - 1,
-                                startingPos.Y + (vector.Y * 2));
-
-                            board[startingPos.X - 1, startingPos.Y + (vector.Y * 2)] =
-                            board[startingPos.X, startingPos.Y];
-                            board[startingPos.X, startingPos.Y] = null;
-
-                            RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
-
-                            board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
-                            return true;
-                        }
-                    }
-                    if (vector.X > 0)
                     {
-                        //Can i eat the piece?
-                        if (board[startingPos.X + 1, startingPos.Y + (vector.Y * 2)]
-                       == null)
-                        {
-                            //Eat piece
-                            board[startingPos.X, startingPos.Y].Pos = new Position(startingPos.X + 1,
-                                startingPos.Y + (vector.Y * 2));
+                        // Eat piece
+                        board[startingPos.X, startingPos.Y].Pos = new Position(
+                            startingPos.X - 1, startingPos.Y + (vector.Y * 2));
 
-                            board[startingPos.X + 1, startingPos.Y + (vector.Y * 2)] =
-                            board[startingPos.X, startingPos.Y];
-                            board[startingPos.X, startingPos.Y] = null;
+                        board[startingPos.X - 1, startingPos.Y + (vector.Y * 2)] =
+                        board[startingPos.X, startingPos.Y];
+                        board[startingPos.X, startingPos.Y] = null;
 
-                            RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
+                        RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
 
-                            board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
-                            return true;
-                        }
+                        board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
+                        return true;
                     }
+
+                    if (vector.X > 0 && board[startingPos.X + 1, startingPos.Y + (vector.Y * 2)]
+                        == null)
+                    {
+                        // Eat piece
+                        board[startingPos.X, startingPos.Y].Pos = new Position(
+                            startingPos.X + 1, startingPos.Y + (vector.Y * 2));
+
+                        board[startingPos.X + 1, startingPos.Y + (vector.Y * 2)] =
+                        board[startingPos.X, startingPos.Y];
+                        board[startingPos.X, startingPos.Y] = null;
+
+                        RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
+
+                        board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
+                        return true;
                 }
-                    if (startingPos.X == 0)
+                }
+
+                if ((startingPos.X == 0) && (startingPos.Y == 0 || startingPos.Y == 4) &&
+                        board[startingPos.X + 1, startingPos.Y + (vector.Y * 2)] == null)
                 {
-                    if (startingPos.Y == 0 || startingPos.Y == 4)
-                    {
-                        //Can i eat the piece?
-                        if (board[startingPos.X + 1, startingPos.Y + (vector.Y * 2)]
-                       == null)
-                        {
-                            //Eat piece
-                            board[startingPos.X, startingPos.Y].Pos = new Position(startingPos.X + 1,
-                                startingPos.Y + (vector.Y * 2));
+                        // Eat piece
+                        board[startingPos.X, startingPos.Y].Pos = new Position(
+                            startingPos.X + 1, startingPos.Y + (vector.Y * 2));
 
-                            board[startingPos.X + 1, startingPos.Y + (vector.Y * 2)] =
-                            board[startingPos.X, startingPos.Y];
-                            board[startingPos.X, startingPos.Y] = null;
+                        board[startingPos.X + 1, startingPos.Y + (vector.Y * 2)] =
+                        board[startingPos.X, startingPos.Y];
+                        board[startingPos.X, startingPos.Y] = null;
 
-                            RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
+                        RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
 
-                            board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
-                            return true;
-                        }
-                    }
+                        board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
+                        return true;
                 }
-                if (startingPos.X == 2)
+
+                if (startingPos.X == 2 && (startingPos.Y == 0 || startingPos.Y == 4)
+                        && board[startingPos.X - 1, startingPos.Y + (vector.Y * 2)]
+                       == null)
                 {
-                    if (startingPos.Y == 0 || startingPos.Y == 4)
-                    {
-                        //Can i eat the piece?
-                        if (board[startingPos.X - 1, startingPos.Y + (vector.Y * 2)]
-                       == null)
-                        {
-                            //Eat piece
-                            board[startingPos.X, startingPos.Y].Pos = new Position(startingPos.X - 1,
-                                startingPos.Y + (vector.Y * 2));
+                    // Eat piece
+                    board[startingPos.X, startingPos.Y].Pos = new Position(
+                        startingPos.X - 1, startingPos.Y + (vector.Y * 2));
 
-                            board[startingPos.X - 1, startingPos.Y + (vector.Y * 2)] =
-                            board[startingPos.X, startingPos.Y];
-                            board[startingPos.X, startingPos.Y] = null;
+                    board[startingPos.X - 1, startingPos.Y + (vector.Y * 2)] =
+                    board[startingPos.X, startingPos.Y];
+                    board[startingPos.X, startingPos.Y] = null;
 
-                            RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
+                    RemovePiece(board[startingPos.X + vector.X, startingPos.Y + vector.Y]);
 
-                            board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
-                            return true;
-                        }
-                    }
+                    board[startingPos.X + vector.X, startingPos.Y + vector.Y] = null;
+                    return true;
                 }
-                //Can i eat the piece?
-                if (board[startingPos.X + (vector.X*2), startingPos.Y + (vector.Y*2)]
+
+                // Can i eat the piece?
+                if (board[startingPos.X + (vector.X * 2), startingPos.Y + (vector.Y * 2)]
                         == null)
                 {
-                    //Eat piece                 
-                    board[startingPos.X, startingPos.Y].Pos = new Position(startingPos.X + (vector.X * 2),
-                                 startingPos.Y + (vector.Y * 2));
+                    // Eat piece                 
+                    board[startingPos.X, startingPos.Y].Pos = new Position(
+                        startingPos.X + (vector.X * 2), startingPos.Y + (vector.Y * 2));
 
-                    board[startingPos.X + (vector.X*2), startingPos.Y + (vector.Y*2)] =
+                    board[startingPos.X + (vector.X * 2), startingPos.Y + (vector.Y * 2)] =
                     board[startingPos.X, startingPos.Y];
                     board[startingPos.X, startingPos.Y] = null;
 
@@ -515,17 +522,19 @@ namespace Projeto3_LP2_2020.Common
                     return true;
                 }
             }
+
             return false;
         }
 
         /// <summary>
         /// Search the spaces around a piece to see if any is null or if any
-        /// can be eaten (if they are pieces of the adversary)
+        /// can be eaten (if they are pieces of the adversary).
         /// </summary>
         /// <param name="startPosition">Pos of the piece searching for
-        /// space</param>
+        /// space.</param>
+        /// <param name="turnBlack">Corrent turn.</param>
         /// <returns>Boolean, true if there is any free space, false if
-        /// not</returns>
+        /// not.</returns>
         private bool SearchFreeSpace(Position startPosition, bool turnBlack)
         {
             // Piece is in CENTER spot of the board
@@ -538,28 +547,35 @@ namespace Projeto3_LP2_2020.Common
                     {
                         return true;
                     }
+
                     // Check spaces where it is possible to EAT pieces
-                    else if(c == 1)
+                    else if (c == 1)
                     {
                         if (turnBlack)
                         {
-                            if ((board[startPosition.X, startPosition.Y -1].State ==
+                            if ((board[startPosition.X, startPosition.Y - 1].State ==
                                 State.White &&
-                                board[startPosition.X, startPosition.Y -2] == null) ||
-                                (board[startPosition.X, startPosition.Y +1].State ==
+                                board[startPosition.X, startPosition.Y - 2] == null) ||
+                                (board[startPosition.X, startPosition.Y + 1].State ==
                                 State.White &&
-                                board[startPosition.X, startPosition.Y +2] == null))
+                                board[startPosition.X, startPosition.Y + 2] == null))
+                            {
                                 return true;
+                            }
                         }
                         else if (!turnBlack)
                         {
-                            if ((board[startPosition.X, startPosition.Y -1].State ==
-                                State.Black &&
-                                board[startPosition.X, startPosition.Y -2] == null) ||
-                                (board[startPosition.X, startPosition.Y +1].State ==
-                                State.Black &&
-                                board[startPosition.X, startPosition.Y +2] == null))
-                                return true;
+                            if ((board[startPosition.X, startPosition.Y - 1].State !=
+                                State.Black ||
+                                board[startPosition.X, startPosition.Y - 2] != null) &&
+                                (board[startPosition.X, startPosition.Y + 1].State !=
+                                State.Black ||
+                                board[startPosition.X, startPosition.Y + 2] != null))
+                            {
+                                continue;
+                            }
+
+                            return true;
                         }
                     }
                 }
@@ -570,53 +586,58 @@ namespace Projeto3_LP2_2020.Common
             else if (startPosition.X == 1 && startPosition.Y != 2)
             {
                 // Check Left and Right
-                if(board[startPosition.X -1, startPosition.Y] == null ||
-                    board[startPosition.X +1, startPosition.Y] == null)
+                if (board[startPosition.X - 1, startPosition.Y] == null ||
+                    board[startPosition.X + 1, startPosition.Y] == null)
+                {
                     return true;
+                }
 
                 // if Above CENTER, check Bellow (and check to EAT)
                 if (startPosition.Y < 2)
                 {
                     // Piece BELLOW is empty
-                    if (board[startPosition.X, startPosition.Y +1] == null)
+                    if (board[startPosition.X, startPosition.Y + 1] == null)
                         return true;
 
                     if (board[startPosition.X, startPosition.Y].State !=
-                        board[startPosition.X, startPosition.Y + 1].State)
-                        if (board[startPosition.X, startPosition.Y + 2] == null)
-                            return true;
+                        board[startPosition.X, startPosition.Y + 1].State
+                        && board[startPosition.X, startPosition.Y + 2] == null)
+                    {
+                        return true;
+                    }
                 }
 
                 // if Bellow CENTER, check Above (and check to EAT)
                 if (startPosition.Y > 2)
                 {
                     // Piece ABOVE is empty
-                    if (board[startPosition.X, startPosition.Y -1] == null)
+                    if (board[startPosition.X, startPosition.Y - 1] == null)
                         return true;
 
                     if (board[startPosition.X, startPosition.Y].State !=
-                        board[startPosition.X, startPosition.Y - 1].State)
-                        if (board[startPosition.X, startPosition.Y - 2] == null)
-                            return true;
+                        board[startPosition.X, startPosition.Y - 1].State
+                        && board[startPosition.X, startPosition.Y - 2] == null)
+                    {
+                        return true;
+                    }
                 }
 
                 // If Piece is close to the TOP and BOTTOM ROWS 
                 if (startPosition.Y == 1 ||
-                    startPosition.Y == board.GetLength(1) -2)
+                    startPosition.Y == board.GetLength(1) - 2)
                 {
                     // If close to TOP ROW, check above to MOVE
                     if (startPosition.Y == 1)
                     {
                         // If close to TOP ROW, check Above
-                        if (board[startPosition.X, startPosition.Y -1] == null)
+                        if (board[startPosition.X, startPosition.Y - 1] == null)
                             return true;
                     }
 
                     // If close to BOTTOM ROW, check Bellow to MOVE
-                    else if (startPosition.Y == board.GetLength(1) -2)
+                    // If close to BOTTOM ROW, check Bellow
+                    else if (startPosition.Y == board.GetLength(1) - 2 && board[startPosition.X, startPosition.Y + 1] == null)
                     {
-                        // If close to BOTTOM ROW, check Bellow
-                        if (board[startPosition.X, startPosition.Y +1] == null)
                             return true;
                     }
 
@@ -629,37 +650,45 @@ namespace Projeto3_LP2_2020.Common
             // Piece is in LEFT COLUMN
             if (startPosition.X == 0)
             {
-                int vectX = 1; 
-                int vectY = 0;
+                const int vectX = 1;
+                const int vectY = 0;
 
                 // Piece to the RIGHT is empty
                 if (board[startPosition.X + 1, startPosition.Y] == null ||
                     board[startPosition.X + vectX, startPosition.Y + vectY] == null)
+                {
                     return true;
+                }
 
                 // Check if EATING is possible
                 if (board[startPosition.X, startPosition.Y].State !=
-                    board[startPosition.X + 1, startPosition.Y].State)
-                    if (board[startPosition.X + 2, startPosition.Y] == null)
-                        return true;
+                    board[startPosition.X + 1, startPosition.Y].State &&
+                    board[startPosition.X + 2, startPosition.Y] == null)
+                {
+                    return true;
+                }
             }
 
             // Piece is in RIGHT COLUM
-            else if (startPosition.X == board.GetLength(0) -1)
+            else if (startPosition.X == board.GetLength(0) - 1)
             {
-                int vectX = -1;
-                int vectY = 0;
+                const int vectX = -1;
+                const int vectY = 0;
 
                 // Piece to the LEFT is empty
-                if (board[startPosition.X -1, startPosition.Y] == null ||
+                if (board[startPosition.X - 1, startPosition.Y] == null ||
                     board[startPosition.X + vectX, startPosition.Y + vectY] == null)
+                {
                     return true;
+                }
 
                 // Check if EATING is possible
                 if (board[startPosition.X, startPosition.Y].State !=
-                    board[startPosition.X - 1, startPosition.Y].State)
-                    if (board[startPosition.X - 2, startPosition.Y] == null)
-                        return true;
+                    board[startPosition.X - 1, startPosition.Y].State &&
+                    board[startPosition.X - 2, startPosition.Y] == null)
+                {
+                    return true;
+                }
             }
 
             // If piece is in a position that can move diagonally
@@ -677,7 +706,9 @@ namespace Projeto3_LP2_2020.Common
                         vectX = 0;
                     }
                     else
+                    {
                         vectX = 1;
+                    }
                 }
                 else
                 {
@@ -686,7 +717,9 @@ namespace Projeto3_LP2_2020.Common
                         vectX = 0;
                     }
                     else
+                    {
                         vectX = -1;
+                    }
                 }
 
                 if (startPosition.Y == 0 || startPosition.Y == 1)
@@ -700,39 +733,40 @@ namespace Projeto3_LP2_2020.Common
                 if (board[startPosition.X, startPosition.Y].State !=
                         board[startPosition.X + vectX, startPosition.Y + vectY].State)
                 {
-                    if (startPosition.X == 0)
+                    if (startPosition.X == 0 && (startPosition.Y == 0 || startPosition.Y == 4) &&
+                        board[startPosition.X + 1, startPosition.Y + (vectY * 2)] == null)
                     {
-                        if (startPosition.Y == 0 || startPosition.Y == 4)
-                        {
-                            if (board[startPosition.X + 1, startPosition.Y + vectY * 2] == null)
-                                return true;
-                        }
-                    }
-                    else if (startPosition.X == 2)
-                    {
-                        if (startPosition.Y == 0 || startPosition.Y == 4)
-                        {
-                            if (board[startPosition.X - 1, startPosition.Y + vectY * 2] == null)
-                                return true;
-                        }
-                    }
-                    if (board[startPosition.X + vectX * 2, startPosition.Y + vectY * 2] == null)
                         return true;
-                }                 
+                    }
+                    else if (startPosition.X == 2 && (startPosition.Y == 0 ||
+                        startPosition.Y == 4) &&
+                        board[startPosition.X - 1, startPosition.Y + (vectY * 2)] == null)
+                    {
+                        return true;
+                    }
+
+                    if (board[startPosition.X + (vectX * 2), startPosition.Y + (vectY * 2)] == null)
+                        return true;
+                }
             }
 
             // Piece is on TOP ROW & Piece bellow is empty
             if (startPosition.Y == 0 &&
-                board[startPosition.X, startPosition.Y +1] == null)
+                board[startPosition.X, startPosition.Y + 1] == null)
+            {
                 return true;
+            }
 
             // Piece is on BOTTOM ROW & Piece above is empty
-            else if (startPosition.Y == board.GetLength(1) -1 &&
-                board[startPosition.X, startPosition.Y -1] == null)
+            else if (startPosition.Y == board.GetLength(1) - 1 &&
+                board[startPosition.X, startPosition.Y - 1] == null)
+            {
                 return true;
+            }
 
             return false;
         }
+
         private void RemovePiece(Piece position)
         {
             if (position.State == State.Black)
@@ -746,6 +780,7 @@ namespace Projeto3_LP2_2020.Common
                 }
             }
             else
+            {
                 for (int i = 0; i < whitePieceSet.Length; i++)
                 {
                     if (whitePieceSet[i] == position)
@@ -753,6 +788,7 @@ namespace Projeto3_LP2_2020.Common
                         whitePieceSet[i] = null;
                     }
                 }
+            }
         }
     }
 }

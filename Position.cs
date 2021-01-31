@@ -10,13 +10,14 @@ namespace Projeto3_LP2_2020.Common
     public struct Position
     {
         /// <summary>
-        /// Column (X).
+        /// Gets or sets Column (Y).
         /// </summary>
-        public int X { get; set;}
+        public int X { get; set; }
+
         /// <summary>
-        /// Row (Y).
+        /// Gets or sets Row (Y).
         /// </summary>
-        public int Y { get; set;}
+        public int Y { get; set; }
 
         /// <summary>
         /// Constructor to make a Position.

@@ -9,8 +9,19 @@ namespace Projeto3_LP2_2020.Common
     /// </summary>
     public enum State
     {
+        /// <summary>
+        /// White piece.
+        /// </summary>
         White,
+
+        /// <summary>
+        /// Black piece.
+        /// </summary>
         Black,
+
+        /// <summary>
+        /// Blocked piece.
+        /// </summary>
         Blocked,
     }
 }
