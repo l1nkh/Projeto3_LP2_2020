@@ -18,7 +18,7 @@ início até à sua entrega_
             Responsável pela organização do projeto e implementação do MVC 
             no GitHub.
             Envolvido no desenvolvimento da implementação original do Felli.
-            Realizou o UML
+            Realizou o UML.
             Envolvido no Markdown.
 
     * João Dias:
