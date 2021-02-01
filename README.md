@@ -51,8 +51,8 @@ início até à sua entrega_
   atualizado através do controller e do model quando o utilizador faz inputs e
   altera o estado do jogo.
   
-* **Observer** -
-
+* **Facade** - Este pattern esconde todos os processos da parte comum do jogo *Felli* na classe
+**GameManager**.
 ---
 
 ### Jogo (Felli)
