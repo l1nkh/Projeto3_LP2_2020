@@ -24,12 +24,14 @@ início até à sua entrega_
 
             Responsável pelo lado de Unity.
             Envolvido no desenvolvimento da implementação original do Felli.
+            Contribuiu para a correção e restruturação da implementação do 
+            Felli de modo a acomodar o MVC.
 
     * Pedro Fernandes:
 
             Responsável pelo lado de Consola.
-            Corrigiu e Restruturou a implementação do Felli de modo a 
-            acomodar o MVC.
+            Encarregado de corrigir e reconstruir a implementação do Felli 
+            de modo a acomodar o MVC.
             Envolvido no Markdown.
 
 [Repositório Git](https://github.com/l1nkh/Projeto3_LP2_2020)
@@ -66,17 +68,20 @@ com o MVC Pattern.
 
 #### O tabuleiro é um array de Pieces
 
-* **Piece** é uma `struct` que representa um espaço no tabuleiro e as peças do
-  mesmo. Estes servem para identificar se um espaço está vazio, ocupado por uma
-  peça amarela, se está ocupado por uma peça vermelha, ou se é um espaço
+* **Piece** representa uma peça do tabuleiro, sendo um espaço vazio representado
+  como null. Desta maneira percebe-se se um espaço está vazio, ocupado por uma
+  peça branca, se está ocupado por uma peça preta, ou se é um espaço
   "bloqueado". Este último é o que nos permite, através de um array
-  bi-dimensional, representar um tabuleiro de Felli.
+  bi-dimensional, simular o tabuleiro de Felli, com o seu formato de
+  "ampulheta".
 
-#### Sistema de Input (Consola)
+### MVC - Consola
 
-* A `function` GetInput() está construido de modo a prestar atenção apenas às 
+#### Sistema de Input
+
+* A `function` GetInput() está construida de modo a prestar atenção apenas às 
   teclas que são consideradas válidas para cada fase do jogo, repetindo um loop
-  até receber algo correto. Este distingue os inputs a fazer e as ações a fazer
+  até receber algo correto. Esta distingue os inputs a fazer e as ações a fazer
   com eles através de uma `enum` GameState:
   * **Menu** (em que o jogador decide se quer jogar, ver a ajuda ou sair do
   jogo)
@@ -88,28 +93,29 @@ com o MVC Pattern.
 * "ChoosePiece" e "ChooseDirection" constituem o GameLoop, com o turno
   alternando após uma transformação da posição de uma peça é feita com sucesso.
   Ao fim de cada turno, é feita uma verificação para identificar se existe um
-  vencedor, passando para o estado de "AnnounceWinner", sendo que aqui os
+  vencedor, passando para o estado de "AnnounceWinner", sendo que aqui, os
   jogadores podem escolher regressar a "StartGame" ou fechar o jogo.
 
 #### A classe Controller é a ligação de ConsoleView com a 'Common'
 
 * `class` **Controller** tem os métodos que interagem com o jogo em si,
-  presente no Commonm, desta maneira isolando a `class` **ConsoleView**,
+  presente no Common, desta maneira isolando a `class` **ConsoleView**,
   que somente recebe input e escreve mensagens na consola, do jogo em si.
   **ConsoleView** recebe o input dado pelo jogador e chama a classe
   **Controller** para esta verificar a validez dos inputs no contexto do *Felli*
   em si (verificar se a peça selecionada está 'viva', por exemplo), e realiza as
-  operações requesitadas pelo jogador, caso controller verifique que estas
+  operações requesitadas pelo jogador, caso **Controller** verifique que estas
   são validas.
 
 * Os métodos da `class` **Controller** compreendem múltiplos metodos da
-  'Common' em si. Por exemplo, a `function` CheckForDirection verifica se a
+  'Common' em si. Por exemplo, a `function` CheckForDirection() verifica se a
   direção em que a peça selecionada é pretendida mover-se é válida, e se o
   for, realiza a transformação, retornando um boolean verdadeiro para informar
   a `function` GetInput() que a transformação foi feita com sucesso e que
-  pode-se passar para a próxima fase. Controller, com os seus métodos,
-  funciona como uma façade da 'Common' para GetInput e - efetivamente - para
-  a `class` **ConsoleView**.
+  pode passar para a próxima fase do jogo. Controller faz isto comunicando com
+  a `class` **GameManager**, que funciona como uma façade da 'Common' para 
+  **Controller**, sendo esta a ponte entre a mesma e a `class` 
+  **ConsoleView**.
 
 ### Unity
 
@@ -136,12 +142,6 @@ com o MVC Pattern.
 ### Diagrama UML
 
 ![Diagrama UML](/images/uml.png)
-
----
-
-### Fluxograma
-
-![Fluxograma](/images/flowchart.png)
 
 ---
 
