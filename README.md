@@ -44,36 +44,55 @@ início até à sua entrega_
 ### Design Patterns utilizados
 
 * **Model-View-Controller (MVC)** - Este pattern é constituido por 3 peças
-  fundamentais, o View, o Model e o Controller. O modelo é o contentor do código
-  comum entre as duas aplicações diferentes do jogo Felli. O Controller manipula
-  o input do utilizador e comunica com o modelo para o saber o que fazer com
-  esse input. A View é responsável pela renderização do jogo no ecrã e é sempre
-  atualizado através do controller e do model quando o utilizador faz inputs e
-  altera o estado do jogo.
+  fundamentais, o Model, o View e o Controller.
+
+     - O **Model** é o contentor do código comum (o 'Common') entre as duas
+       aplicações diferentes do jogo _Felli_. 
+     - A **View** é responsável pela renderização do jogo no ecrã e receber
+       o input do jogador. Com este, chama os métodos do controller apropriados
+       que por sua vez vão aceder ao _Common_ para progredir com o jogo. Como
+       está construido, de acordo com o resultado dos métodos de
+       **Controller**, **ConsoleView** sabe se a jogada foi valida e pode
+       passar a "ouvir" o _input_ relacionado com a proxima fase, realizando
+       as ações associadas à mesma.
+     - O **Controller**, de acordo com o input do utilizador - recebido e
+       interpretado no View - comunica com o Common para que este realize as
+       ações de jogo pretendidas, interpretando por sua vez o resultados dos
+       mesmos e retornando uma resposta ao **ConsoleView** (que chamou o seu
+       método).
   
-* **Facade** - Este pattern esconde todos os processos da parte comum do jogo *Felli* na classe
-**GameManager**.
+* **Facade** - Este pattern está presente através da `class` **GameManager**,
+  que é o ponto de contacto entre o _Felli_ e as versões de consola e Unity.
+  Os metodos de **GameManager** compreendem as ações gerais do jogo, sendo estas
+  verificar se a peça selecionada - através do input do jogador - está viva _e_
+  tem movimentos possíveis ('IsPieceAvailable()'), se o movimento selecionado
+  para a peça escolhida é válido, realizando-o se for ('CanDoMove()'), e por fim,
+  verificando se - após um jogador realizar uma jogada - as peças do adversário
+  foram todas derrotadas, comprovando que o jogo terminou. **GameManager**
+  faz isto chamando a sequência de métodos da `class` **Board** necessários para
+  a ação requisitada a ser realizada.
+
 ---
 
 ### Jogo (Felli)
 
-Foi utilizada uma implemetnação do Felli desenvolvida no passado por parte de
+Foi utilizada uma implemetnação do _Felli_ desenvolvida no passado por parte de
 um grupo do qual Diogo Henriques e João Dias faziam parte. Começando com este,
 foi feita depois uma restruturação do mesmo, de modo a garantir o funcionamento
 com o MVC Pattern.
 
 > Como referência para o projeto tem-se as regras disponíveis na página de
-> wikipedia sobre o mesmo (link nas referências), estas são as mesmas que as
+> Wikipedia sobre o mesmo (link nas referências), estas são as mesmas que as
 > propostas no
 > [enunciado do projeto](https://github.com/VideojogosLusofona/lp2_2020_p3).
 
 #### O tabuleiro é um array de Pieces
 
 * **Piece** representa uma peça do tabuleiro, sendo um espaço vazio representado
-  como null. Desta maneira percebe-se se um espaço está vazio, ocupado por uma
-  peça branca, se está ocupado por uma peça preta, ou se é um espaço
+  como _null_. Desta maneira, percebe-se se um espaço está vazio, ocupado por
+  uma peça branca, se está ocupado por uma peça preta, ou se é um espaço
   "bloqueado". Este último é o que nos permite, através de um array
-  bi-dimensional, simular o tabuleiro de Felli, com o seu formato de
+  bi-dimensional, simular o tabuleiro de _Felli_, com o seu formato de
   "ampulheta".
 
 ### MVC - Consola
@@ -118,7 +137,7 @@ com o MVC Pattern.
   **Controller**, sendo esta a ponte entre a mesma e a `class` 
   **ConsoleView**.
 
-### Unity
+### MVC - Unity
 
 #### Container
 
