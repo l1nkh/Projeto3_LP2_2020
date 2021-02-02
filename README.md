@@ -65,10 +65,12 @@ início até à sua entrega_
   que é o ponto de contacto entre o _Felli_ e as versões de consola e Unity.
   Os metodos de **GameManager** compreendem as ações gerais do jogo, sendo
   estas: verificar se a peça selecionada - através do *input* do jogador -
-  está viva _e_ tem movimentos possíveis ('IsPieceAvailable()'), se o movimento selecionado para a peça escolhida é válido, realizando-o se for
+  está viva _e_ tem movimentos possíveis ('IsPieceAvailable()'), se o movimento
+  selecionado para a peça escolhida é válido, realizando-o se for
   ('CanDoMove()'), e por fim, verificando se - após um jogador realizar uma
   jogada - as peças do adversário foram todas derrotadas, indicando que o jogo
-  terminou. **GameManager** faz isto chamando a sequência de métodos da `class` **Board** necessários para a ação requisitada a ser realizada.
+  terminou. **GameManager** faz isto chamando a sequência de métodos da `class`
+  **Board** necessários para a ação requisitada a ser realizada.
 
 ---
 
